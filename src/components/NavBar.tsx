@@ -1,8 +1,5 @@
 "use client";
-
-import { FC } from "react";
 import Link from "next/link"
-import { cn } from "@/lib/utils"
 
 import {
   NavigationMenu,
@@ -21,16 +18,16 @@ const NavBar = () => {
           <NavigationMenuItem>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
+            <Link href="/dashboard" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Dashboard
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
+            <Link href="/create" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Registro
+                Crear Proveedor
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
