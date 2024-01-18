@@ -9,36 +9,30 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Label } from "./ui/label";
 
 const NavBar = () => {
   return (
-    <div className="flex justify-around py-2 ">
+    <div className="flex justify-around  py-2 bg-radius">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/dashboard" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Dashboard
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/create" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Crear Proveedor
-              </NavigationMenuLink>
+            <Link
+              href="/"
+              passHref
+            >
+              <img src="/radius.svg"  />
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
-        
       </NavigationMenu>
-      <div>
-        <Avatar>
-          <AvatarImage src="" />
-          <AvatarFallback>PV</AvatarFallback>
-        </Avatar>
+      <div className="flex items-center">
+        <Link
+          href="/"
+          passHref
+        >
+          <Label className="text-white">CUSTOMER MODEL RADIUS - CMR</Label>
+        </Link>
       </div>
     </div>
   )

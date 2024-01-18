@@ -6,16 +6,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { FC } from "react";
 
 interface InputFieldProps {
   form: any;
   name: string;
   label: string;
+  multiple?: boolean;
   [key: string]: any;
 }
 
-export const InputField: FC<InputFieldProps> = ({ form, name, label, ...props }) => (
+export const InputField: FC<InputFieldProps> = ({ form, name, label, multiple=false, ...props }) => (
   <div>
     <FormField
       control={form.control}
@@ -24,7 +26,12 @@ export const InputField: FC<InputFieldProps> = ({ form, name, label, ...props })
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input {...field} {...props} />
+            {
+              multiple ?
+              <Textarea {...field} {...props} />
+              :
+              <Input {...field} {...props} />
+            }
           </FormControl>
           <FormMessage />
         </FormItem>
