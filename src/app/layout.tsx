@@ -19,7 +19,7 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
      <html lang="en">
       <body className={inter.className}>
         <NavBar />
-        <main className="h-screen mx-auto px-4 py-4 bg-accent">
+        <main className="h-screen mx-auto px-4 py-4">
           <div>
             {children}
           </div>
