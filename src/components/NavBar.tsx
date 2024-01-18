@@ -1,14 +1,9 @@
-"use client";
 import Link from "next/link"
-
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Label } from "./ui/label";
 
 const NavBar = () => {
@@ -28,7 +23,7 @@ const NavBar = () => {
       </NavigationMenu>
       <div className="flex items-center">
         <Link
-          href="/"
+          href=""
           passHref
         >
           <Label className="text-white">CUSTOMER MODEL RADIUS - CMR</Label>
