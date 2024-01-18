@@ -94,12 +94,12 @@ const Page = () => {
       }
     }
   )
-  const { getValues, handleSubmit } = form
+  const { handleSubmit } = form
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data)
   }
   return (
-    <div className="">
+    <div className="pb-10">
       <Form {...form}>
         <form className="py-2" onSubmit={handleSubmit(onSubmit)}>
           <div className="my-2">
