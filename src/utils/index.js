@@ -1,5 +1,6 @@
 const createData = (data) => {
   return {
+    id: data.id,
     nomraz: data.businessName,
     nomcomm: data.commercialName,
     website: data.website,

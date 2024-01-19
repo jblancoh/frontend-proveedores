@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
-import { createProviders } from "@/services"
+import { createProviders, updateProviderById } from "@/services"
 import { useToast } from "@/components/ui/use-toast"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation"
 import DatePicker from "@/components/DatePicker"
 
 type FormValues = {
+  id?: string,
   businessName: string,
   commercialName: string,
   website?: URL,
@@ -90,6 +91,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
   const form = useForm(
     {
       defaultValues: {
+        id: provider.id,
         businessName: provider.nomraz,
         commercialName: provider.nomcomm,
         website: provider.website,
@@ -132,28 +134,27 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
 
   const { handleSubmit } = form
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ data:", data)
-    // setLoading(true)
-    // try {
-    //   await createProviders(data)
-    //   toast({
-    //     title: "Success",
-    //     description: "Se creo el proveedor",
-    //     variant: "success",
-    //   })
+    setLoading(true)
+    try {
+      await updateProviderById(data.id, data)
+      toast({
+        title: "Success",
+        description: "Se actualizó el proveedor",
+        variant: "success",
+      })
       
-    // } catch (error) {
-    //   toast({
-    //     title: "Error",
-    //     description: "No se pudo crear el proveedor",
-    //     variant: "destructive",
-    //   })
-    // } finally {
-    //   setLoading(false)
-    // }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "No se pudo actualizar el proveedor",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
   }
   return (
-    <div className="pb-10">
+    <div className="pb-4">
       <Form {...form}>
         <form className="py-2" onSubmit={handleSubmit(onSubmit)}>
           <div className="my-2">
@@ -269,7 +270,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
               </CardContent>
             </Card>
           </div>
-          <div>
+          <div className="pt-4">
             <Button
               className="w-full"
               type="submit"

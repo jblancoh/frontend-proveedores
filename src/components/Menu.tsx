@@ -18,7 +18,7 @@ const Menu = () => {
       <MenubarMenu>
         <MenubarTrigger 
           className={`hover:bg-radius hover:text-white focus:bg-radius focus:text-white 
-            ${(pathname === '/create' || pathname === '/search' || pathname === '/edit') && 'bg-radius text-white'}
+            ${(pathname === '/create' || pathname === '/providers' || pathname === '/edit') && 'bg-radius text-white'}
           `}
           
         >
@@ -28,7 +28,7 @@ const Menu = () => {
           <MenubarItem onSelect={() => router.push('create')}>
             Alta Proveedor <MenubarShortcut>⌘A</MenubarShortcut>
           </MenubarItem>
-          <MenubarItem onSelect={() => router.push('search')}>
+          <MenubarItem onSelect={() => router.push('providers')}>
             Bajas y cambios <MenubarShortcut>⌘B</MenubarShortcut>
           </MenubarItem>
         </MenubarContent>
