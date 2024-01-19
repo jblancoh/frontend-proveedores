@@ -16,6 +16,9 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { createProviders } from "@/services"
+import { useToast } from "@/components/ui/use-toast"
+import { useState } from "react"
+import { Loader2 } from "lucide-react"
 
 type FormValues = {
   businessName: string,
@@ -55,27 +58,28 @@ type FormValues = {
 }
 
 const Page = () => {
+  const { toast } = useToast()
   const form = useForm(
     {
       defaultValues: {
-        businessName: "Hola",
-        commercialName: "Hola 2",
-        website: "hola.com",
-        constitutionDate: "2024-01-19T01:43:14.287Z",
-        deletedDate: "2024-01-19T01:43:14.287Z",
-        reactivatedDate: "2024-01-19T01:43:14.287Z",
-        state: "Tabasco",
-        fullAddress: "Calle 1",
-        postalCode: "86127",
-        delegation: "Villahermosa",
-        rfc: "ASDF1234567890",
-        socialObjective: "Hola mundo Social",
-        economicActivity: "Hola mundo Economico",
-        specialty: "Hola mundo Especialidad",
-        legalRepresentativeFullName: "Legal Representante",
-        legalRepresentativeOfficePhone: "5588995566",
-        legalRepresentativeMobilePhone: "5588774455",
-        legalRepresentativeEmail: "legal@radiustech.mx",
+        businessName: process.env.NODE_ENV === "development" ? "Hola" : "",
+        commercialName: process.env.NODE_ENV === "development" ? "Hola" : "",
+        website: process.env.NODE_ENV === "development" ? "Hola" : "",
+        constitutionDate: process.env.NODE_ENV === "development" ? "2024-01-19T01:43:14.287Z" : "",
+        deletedDate: "",
+        reactivatedDate: "",
+        state: process.env.NODE_ENV === "development" ? "Tabasco" : "",
+        fullAddress: process.env.NODE_ENV === "development" ? "Calle 1" : "",
+        postalCode: process.env.NODE_ENV === "development" ? "86000" : "",
+        delegation: process.env.NODE_ENV === "development" ? "Villahermosa" : "",
+        rfc: process.env.NODE_ENV === "development" ? "RFC123456789" : "",
+        socialObjective: process.env.NODE_ENV === "development" ? "Hola mundo Objetivo Social" : "",
+        economicActivity: process.env.NODE_ENV === "development" ? "Hola mundo Actividad Economica" : "",
+        specialty: process.env.NODE_ENV === "development" ? "Hola mundo Especialidad" : "",
+        legalRepresentativeFullName: process.env.NODE_ENV === "development" ? "Hola mundo Apoderado Legal" : "",
+        legalRepresentativeOfficePhone: process.env.NODE_ENV === "development" ? "123456789" : "",
+        legalRepresentativeMobilePhone: process.env.NODE_ENV === "development" ? "123456789" : "",
+        legalRepresentativeEmail: process.env.NODE_ENV === "development" ? "legal@example.com" : "",
         generalDirectorFullName: "",
         generalDirectorOfficePhone: "",
         generalDirectorMobilePhone: "",
@@ -97,13 +101,27 @@ const Page = () => {
       }
     }
   )
+  const [loading, setLoading] = useState(false)
+  
   const { handleSubmit } = form
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    setLoading(true)
     try {
       const response = await createProviders(data)
-      console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ response:", response)
+      if(!response.ok) throw new Error("No se pudo crear el proveedor")
+      toast({
+        title: "Success",
+        description: "Se creo el proveedor",
+        variant: "success",
+      })
     } catch (error) {
-      alert("Error", JSON.stringify(error))
+      toast({
+        title: "Error",
+        description: "No se pudo crear el proveedor",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
     }
   }
   return (
@@ -221,8 +239,13 @@ const Page = () => {
               className="w-full"
               type="submit"
               variant="radius"
+              disabled={loading}
             >
-              Guardar
+              {
+                loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  :
+                  "Guardar"
+              }
             </Button>
           </div>
         </form>

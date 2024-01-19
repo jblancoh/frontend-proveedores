@@ -1,10 +1,9 @@
-'use server'
 import { createData } from '../utils';
 
 async function createProviders(data) {
   const formattedData = createData(data);
-        
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/create`, {
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/create`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

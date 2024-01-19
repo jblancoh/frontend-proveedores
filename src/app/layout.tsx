@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import NavBar from "@/components/NavBar"
+import { Toaster } from "@/components/ui/toaster"
 
 interface HomeLayoutProps {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
             {children}
           </div>
         </main>
+        <Toaster />
       </body>
     </html>
     )
