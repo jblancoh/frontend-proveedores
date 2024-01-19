@@ -20,6 +20,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
+import DatePicker from "@/components/DatePicker"
 
 type FormValues = {
   businessName: string,
@@ -66,7 +67,7 @@ const Page = () => {
         businessName: process.env.NODE_ENV === "development" ? "Hola" : "",
         commercialName: process.env.NODE_ENV === "development" ? "Hola" : "",
         website: process.env.NODE_ENV === "development" ? "Hola" : "",
-        constitutionDate: process.env.NODE_ENV === "development" ? "2024-01-19T01:43:14.287Z" : "",
+        constitutionDate: new Date(),
         deletedDate: "",
         reactivatedDate: "",
         state: process.env.NODE_ENV === "development" ? "Tabasco" : "",
@@ -142,15 +143,22 @@ const Page = () => {
                 <div className="grid grid-cols-4 gap-4">
                   <InputField form={form} name="businessName" label="Razon Social" />
                   <InputField form={form} name="commercialName" label="Nombre Comercial" />
-                  <InputField form={form} name="website" label="Pagina Web" />
-                  <InputField form={form} name="constitutionDate" label="Fecha de Constitucion" />
+                  <InputField form={form} name="rfc" label="RFC" />
+                  <InputField form={form} name="curp" label="CURP" />
+                </div>
+                <div className="grid grid-cols-3 gap-4 py-2">
+                  <div className="self-center">
+                    <DatePicker form={form} name="constitutionDate" label="Fecha de Constitucion" />
+                  </div>
+                  <div className="col-span-2">
+                    <InputField form={form} name= "fullAddress" label="Domicilio Completo" />
+                  </div>
                 </div>
                 <div className="grid grid-cols-5 gap-4 py-2">
                   <InputField form={form} name= "state" label="Estado" />
-                  <InputField form={form} name= "fullAddress" label="Domicilio Completo" />
-                  <InputField form={form} name= "postalCode" label="C.P." />
                   <InputField form={form} name= "delegation" label="Delegacion/Municipio" />
-                  <InputField form={form} name= "rfc" label="RFC" />
+                  <InputField form={form} name= "postalCode" label="C.P." />
+                  <InputField form={form} name="website" label="Pagina Web" />
                 </div>
                 <div className="grid grid-cols-5 gap-4">
                   <div className="col-span-5 mt-6">
