@@ -15,11 +15,15 @@ import {
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
+import { createProviders } from "@/services"
+import { useToast } from "@/components/ui/use-toast"
+import { useState } from "react"
+import { Loader2 } from "lucide-react"
 
 type FormValues = {
   businessName: string,
   commercialName: string,
-  webPage:  string,
+  website:  string,
   constitutionDate: string,
   state:  string,
   fullAddress:  string,
@@ -54,25 +58,28 @@ type FormValues = {
 }
 
 const Page = () => {
+  const { toast } = useToast()
   const form = useForm(
     {
       defaultValues: {
-        businessName: "",
-        commercialName: "",
-        webPage: "",
-        constitutionDate: "",
-        state: "",
-        fullAddress: "",
-        postalCode: "",
-        delegation: "",
-        rfc: "",
-        socialObjective: "",
-        economicActivity: "",
-        specialty: "",
-        legalRepresentativeFullName: "",
-        legalRepresentativeOfficePhone: "",
-        legalRepresentativeMobilePhone: "",
-        legalRepresentativeEmail: "",
+        businessName: process.env.NODE_ENV === "development" ? "Hola" : "",
+        commercialName: process.env.NODE_ENV === "development" ? "Hola" : "",
+        website: process.env.NODE_ENV === "development" ? "Hola" : "",
+        constitutionDate: process.env.NODE_ENV === "development" ? "2024-01-19T01:43:14.287Z" : "",
+        deletedDate: "",
+        reactivatedDate: "",
+        state: process.env.NODE_ENV === "development" ? "Tabasco" : "",
+        fullAddress: process.env.NODE_ENV === "development" ? "Calle 1" : "",
+        postalCode: process.env.NODE_ENV === "development" ? "86000" : "",
+        delegation: process.env.NODE_ENV === "development" ? "Villahermosa" : "",
+        rfc: process.env.NODE_ENV === "development" ? "RFC123456789" : "",
+        socialObjective: process.env.NODE_ENV === "development" ? "Hola mundo Objetivo Social" : "",
+        economicActivity: process.env.NODE_ENV === "development" ? "Hola mundo Actividad Economica" : "",
+        specialty: process.env.NODE_ENV === "development" ? "Hola mundo Especialidad" : "",
+        legalRepresentativeFullName: process.env.NODE_ENV === "development" ? "Hola mundo Apoderado Legal" : "",
+        legalRepresentativeOfficePhone: process.env.NODE_ENV === "development" ? "123456789" : "",
+        legalRepresentativeMobilePhone: process.env.NODE_ENV === "development" ? "123456789" : "",
+        legalRepresentativeEmail: process.env.NODE_ENV === "development" ? "legal@example.com" : "",
         generalDirectorFullName: "",
         generalDirectorOfficePhone: "",
         generalDirectorMobilePhone: "",
@@ -94,12 +101,31 @@ const Page = () => {
       }
     }
   )
-  const { getValues, handleSubmit } = form
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data)
+  const [loading, setLoading] = useState(false)
+  
+  const { handleSubmit } = form
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    setLoading(true)
+    try {
+      const response = await createProviders(data)
+      if(!response.ok) throw new Error("No se pudo crear el proveedor")
+      toast({
+        title: "Success",
+        description: "Se creo el proveedor",
+        variant: "success",
+      })
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "No se pudo crear el proveedor",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
   }
   return (
-    <div className="">
+    <div className="pb-10">
       <Form {...form}>
         <form className="py-2" onSubmit={handleSubmit(onSubmit)}>
           <div className="my-2">
@@ -113,7 +139,7 @@ const Page = () => {
                 <div className="grid grid-cols-4 gap-4">
                   <InputField form={form} name="businessName" label="Razon Social" />
                   <InputField form={form} name="commercialName" label="Nombre Comercial" />
-                  <InputField form={form} name="webPage" label="Pagina Web" />
+                  <InputField form={form} name="website" label="Pagina Web" />
                   <InputField form={form} name="constitutionDate" label="Fecha de Constitucion" />
                 </div>
                 <div className="grid grid-cols-5 gap-4 py-2">
@@ -213,8 +239,13 @@ const Page = () => {
               className="w-full"
               type="submit"
               variant="radius"
+              disabled={loading}
             >
-              Guardar
+              {
+                loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  :
+                  "Guardar"
+              }
             </Button>
           </div>
         </form>
