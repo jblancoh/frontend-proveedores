@@ -26,6 +26,7 @@ async function getAllProviders() {
       headers: {
         'Content-Type': 'application/json'
       },
+      cache: 'no-store'
     });
     if (!response.ok) {
       throw new Error(response.statusText);
@@ -37,25 +38,71 @@ async function getAllProviders() {
 }
 
 async function getProviderById(id) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-  });
-  return response.json();
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
+    return response.json();
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 async function updateProviderById(id, data) {
   const formattedData = createData(data);
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
-    method: 'PUT',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formattedData),
-  });
-  return response.json();
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formattedData),
+    });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+    return response.json();
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+async function deleteProviderById(id) {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response.json();
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+async function activeProviderById(id) {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response.json();
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 export {
@@ -63,4 +110,6 @@ export {
   getAllProviders,
   getProviderById,
   updateProviderById,
+  deleteProviderById,
+  activeProviderById,
 }
