@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   const res = await request.json();
   try {
-    const response = await fetch(`${process.env.API_URL}/providers/${params.id}`, {
+    const response = await fetch(`${process.env.API_URL}providers/${params.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
 export async function GET({ params }: { params: { id: string } }) {
   try {
-    const response = await fetch(`${process.env.API_URL}/providers/${params.id}`, {
+    const response = await fetch(`${process.env.API_URL}providers/${params.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

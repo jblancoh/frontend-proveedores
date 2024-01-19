@@ -1,6 +1,6 @@
 const createData = (data) => {
   return {
-    nomRaz: data.businessName,
+    nomraz: data.businessName,
     nom_comm: data.commercialName,
     website: data.website,
     rfc: data.rfc,
