@@ -26,6 +26,7 @@ import { useEffect, useState } from "react"
 import IconSearch from "@/components/IconSearch"
 import { Loader2 } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
+import { SelectField } from "@/components/form/SelectField"
 
 type FormValues = {
   businessName?: string
@@ -92,23 +93,7 @@ const Page = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-4 gap-4 justify-center items-end">
-                  <div className="col-span-1">
-                    <Label>Proveedor</Label>
-                    <Select>
-                      <SelectTrigger className="w-full mt-2">
-                        <SelectValue placeholder="Seleccionar..." />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {
-                            providers?.map((provider: ProviderData) => (
-                              <SelectItem key={provider.id} value={provider.id}>{`${provider.nomraz || ''} - ${provider.nom_com || ''}`}</SelectItem>
-                            ))
-                          }
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                  <SelectField form={form} name="provider" label="Proveedor" data={providers} />
                   <div className="col-span-1">
                     <InputField form={form} name="businessName" label="Razon Social" />
                   </div>
