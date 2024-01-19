@@ -2,25 +2,38 @@ import { createData } from '../utils';
 
 async function createProviders(data) {
   const formattedData = createData(data);
-
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/create`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formattedData),
-  });
-  return response.json();
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/create`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formattedData),
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response.json();
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 async function getAllProviders() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/all`, {
-    method: 'GET',
-    headers: {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/all`, {
+      method: 'GET',
+      headers: {
         'Content-Type': 'application/json'
-    },
-  });
-  return response.json();
+      },
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response.json();
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 async function getProviderById(id) {

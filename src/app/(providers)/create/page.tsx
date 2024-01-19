@@ -19,6 +19,7 @@ import { createProviders } from "@/services"
 import { useToast } from "@/components/ui/use-toast"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 type FormValues = {
   businessName: string,
@@ -101,25 +102,27 @@ const Page = () => {
       }
     }
   )
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   
   const { handleSubmit } = form
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setLoading(true)
     try {
-      const response = await createProviders(data)
-      if(!response.ok) throw new Error("No se pudo crear el proveedor")
+      await createProviders(data)
       toast({
         title: "Success",
         description: "Se creo el proveedor",
         variant: "success",
       })
+      
     } catch (error) {
       toast({
         title: "Error",
         description: "No se pudo crear el proveedor",
         variant: "destructive",
       })
+      router.push("/home")
     } finally {
       setLoading(false)
     }

@@ -34,8 +34,10 @@ type FormValues = {
 
 interface ProviderData {
   id: string
-  businessName: string
-  commercialName: string
+  businessName?: string
+  commercialName?: string
+  nomraz: string
+  nom_com: string
 }
 
 const Page = () => {
@@ -63,7 +65,6 @@ const Page = () => {
     const fetchProviders = async () => {
       try {
         const response = await getAllProviders()
-        if(!response.ok) throw new Error("No se pudieron obtener los proveedores")
         const providers = response.data
         
         setProviders(providers)
@@ -100,8 +101,8 @@ const Page = () => {
                       <SelectContent>
                         <SelectGroup>
                           {
-                            providers.map((provider: ProviderData) => (
-                              <SelectItem key={provider.id} value={provider.id}>{provider.businessName}</SelectItem>
+                            providers?.map((provider: ProviderData) => (
+                              <SelectItem key={provider.id} value={provider.id}>{`${provider.nomraz || ''} - ${provider.nom_com || ''}`}</SelectItem>
                             ))
                           }
                         </SelectGroup>
