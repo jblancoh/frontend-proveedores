@@ -18,19 +18,46 @@ const Page = () => {
       <div className="pb-2">
         <Label className="text-radius font-bold text-3xl">¡Buenos días!</Label>
       </div>
-      <div className="grid grid-cols-3">
+      <div className="grid md:grid-cols-3 gap-2 grid-rows-3">
         <Card>
-          <CardHeader>
+          <CardHeader className="h-2/3">
             <CardTitle>Alta de Proveedor</CardTitle>
             <CardDescription>Da de alta un proveedor con información básica de la empresa, directorrio de contacto y zona geográfica de cobertura.</CardDescription>
           </CardHeader>
-          
           <CardFooter className="justify-end">
             <Button
               variant="radius"
               onClick={() => router.push('create')}
             >
               Alta de Proveedor
+            </Button>
+          </CardFooter>
+        </Card>
+        <Card>
+          <CardHeader className="h-2/3">
+            <CardTitle>Reportes</CardTitle>
+            <CardDescription>Genera reportes personalizados, de acuerdo a periodos de tiempo que necesites.</CardDescription>
+          </CardHeader>
+          <CardFooter className="justify-end">
+            <Button
+              variant="radius"
+              onClick={() => router.push('reports')}
+            >
+              Generar report
+            </Button>
+          </CardFooter>
+        </Card>
+        <Card>
+          <CardHeader className="h-2/3">
+            <CardTitle>Mantenimiento</CardTitle>
+            <CardDescription>Da mantenimiento a tu cuenta.</CardDescription>
+          </CardHeader>
+          <CardFooter className="justify-end">
+            <Button
+              variant="radius"
+              onClick={() => router.push('maintenance')}
+            >
+              Dar mantenimiento
             </Button>
           </CardFooter>
         </Card>
