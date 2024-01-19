@@ -56,13 +56,10 @@ interface ProviderData {
   nacional?: string
   r_curp?: string
   num_escritura?: string
-  fec_alta?: string
-  fec_baja?: string
-  fec_react?: string
   estatus?: number
   contact?: Array<any>
   coverage?: Array<any>
-
+  fec_const?: string
 }
 
 const Page = () => {
@@ -79,7 +76,6 @@ const Page = () => {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<ProviderData>()
   const { toast } = useToast()
-  const router = useRouter()
   
   const onSubmit: SubmitHandler<FormValues> = async ({provider}) => {
     setLoading(true)
@@ -166,17 +162,19 @@ const Page = () => {
             <Loader2 className="h-10 w-10 animate-spin" />
         </div></Card>
         }
-        {data && 
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                <FormSectionHeader title="Proveedor" />
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <EditForm provider={data} />
-            </CardContent>
-          </Card>
+        {data &&
+          <>
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  <FormSectionHeader title="Proveedor" />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+              </CardContent>
+            </Card>
+            <EditForm provider={data} />
+          </>
         }
     </div>
   )

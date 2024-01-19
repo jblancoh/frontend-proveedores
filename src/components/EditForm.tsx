@@ -78,13 +78,10 @@ interface ProviderData {
   nacional?: string
   r_curp?: string
   num_escritura?: string
-  fec_alta?: string
-  fec_baja?: string
-  fec_react?: string
   estatus?: number
   contact?: Array<any>
   coverage?: Array<any>
-
+  fec_const?: string
 }
 
 
@@ -96,7 +93,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
         businessName: provider.nomraz,
         commercialName: provider.nomcomm,
         website: provider.website,
-        constitutionDate: provider.fec_alta,
+        constitutionDate: provider.fec_const,
         state: provider.estado,
         fullAddress: provider.domicilio,
         postalCode: provider.cp,

@@ -29,7 +29,7 @@ const DatePicker = ({ form, name, label}: DatePickerProps) => {
   return (
     <FormField
       control={form.control}
-      name="dob"
+      name={name}
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel className="my-1">{label}</FormLabel>

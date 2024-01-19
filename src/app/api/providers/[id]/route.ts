@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   const res = await request.json();
   try {
     const response = await fetch(`${process.env.API_URL}providers/${params.id}`, {
