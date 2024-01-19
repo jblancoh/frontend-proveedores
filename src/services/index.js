@@ -39,7 +39,7 @@ async function getAllProviders() {
 
 async function getProviderById(id) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/provider/${id}`, {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ async function updateProviderById(id, data) {
 
 async function deleteProviderById(id) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/provider/${id}`, {
       method: 'DELETE',
       headers: {
           'Content-Type': 'application/json'
@@ -90,7 +90,7 @@ async function deleteProviderById(id) {
 
 async function activeProviderById(id) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/provider/${id}`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json'

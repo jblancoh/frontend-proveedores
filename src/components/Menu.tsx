@@ -26,10 +26,10 @@ const Menu = () => {
         </MenubarTrigger>
         <MenubarContent>
           <MenubarItem onSelect={() => router.push('create')}>
-            Alta Proveedor <MenubarShortcut>⌘A</MenubarShortcut>
+            Alta Proveedor <MenubarShortcut>⌘W</MenubarShortcut>
           </MenubarItem>
           <MenubarItem onSelect={() => router.push('providers')}>
-            Bajas y cambios <MenubarShortcut>⌘B</MenubarShortcut>
+            Bajas y cambios <MenubarShortcut>⌘E</MenubarShortcut>
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
