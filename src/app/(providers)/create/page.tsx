@@ -15,11 +15,12 @@ import {
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
+import { createProviders } from "@/services"
 
 type FormValues = {
   businessName: string,
   commercialName: string,
-  webPage:  string,
+  website:  string,
   constitutionDate: string,
   state:  string,
   fullAddress:  string,
@@ -57,22 +58,24 @@ const Page = () => {
   const form = useForm(
     {
       defaultValues: {
-        businessName: "",
-        commercialName: "",
-        webPage: "",
-        constitutionDate: "",
-        state: "",
-        fullAddress: "",
-        postalCode: "",
-        delegation: "",
-        rfc: "",
-        socialObjective: "",
-        economicActivity: "",
-        specialty: "",
-        legalRepresentativeFullName: "",
-        legalRepresentativeOfficePhone: "",
-        legalRepresentativeMobilePhone: "",
-        legalRepresentativeEmail: "",
+        businessName: "Hola",
+        commercialName: "Hola 2",
+        website: "hola.com",
+        constitutionDate: "2024-01-19T01:43:14.287Z",
+        deletedDate: "2024-01-19T01:43:14.287Z",
+        reactivatedDate: "2024-01-19T01:43:14.287Z",
+        state: "Tabasco",
+        fullAddress: "Calle 1",
+        postalCode: "86127",
+        delegation: "Villahermosa",
+        rfc: "ASDF1234567890",
+        socialObjective: "Hola mundo Social",
+        economicActivity: "Hola mundo Economico",
+        specialty: "Hola mundo Especialidad",
+        legalRepresentativeFullName: "Legal Representante",
+        legalRepresentativeOfficePhone: "5588995566",
+        legalRepresentativeMobilePhone: "5588774455",
+        legalRepresentativeEmail: "legal@radiustech.mx",
         generalDirectorFullName: "",
         generalDirectorOfficePhone: "",
         generalDirectorMobilePhone: "",
@@ -95,8 +98,13 @@ const Page = () => {
     }
   )
   const { handleSubmit } = form
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      const response = await createProviders(data)
+      console.log("🚀 ~ constonSubmit:SubmitHandler<FormValues>= ~ response:", response)
+    } catch (error) {
+      alert("Error", JSON.stringify(error))
+    }
   }
   return (
     <div className="pb-10">
@@ -113,7 +121,7 @@ const Page = () => {
                 <div className="grid grid-cols-4 gap-4">
                   <InputField form={form} name="businessName" label="Razon Social" />
                   <InputField form={form} name="commercialName" label="Nombre Comercial" />
-                  <InputField form={form} name="webPage" label="Pagina Web" />
+                  <InputField form={form} name="website" label="Pagina Web" />
                   <InputField form={form} name="constitutionDate" label="Fecha de Constitucion" />
                 </div>
                 <div className="grid grid-cols-5 gap-4 py-2">
