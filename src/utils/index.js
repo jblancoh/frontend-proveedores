@@ -1,7 +1,7 @@
 const createData = (data) => {
   return {
     nomraz: data.businessName,
-    nom_comm: data.commercialName,
+    nomcomm: data.commercialName,
     website: data.website,
     rfc: data.rfc,
     p_curp: data.curp || '',

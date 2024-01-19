@@ -21,24 +21,48 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import { getAllProviders } from "@/services"
-import { useEffect, useState } from "react"
+import { getAllProviders, getProviderById } from "@/services"
+import { Suspense, useEffect, useState } from "react"
 import IconSearch from "@/components/IconSearch"
 import { Loader2 } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { SelectField } from "@/components/form/SelectField"
+import { useRouter } from "next/navigation"
+import EditForm from "@/components/EditForm"
 
 type FormValues = {
   businessName?: string
   commercialName?: string
+  provider?: string
 }
+
 
 interface ProviderData {
   id: string
-  businessName?: string
-  commercialName?: string
   nomraz: string
-  nom_com: string
+  nomcomm: string
+  website?: URL,
+  rfc?: string
+  p_curp?: string
+  obj_social?: string
+  act_econom?: string
+  especialidad?: string
+  tel1?: string
+  tel2?: string
+  domicilio?: string
+  delmpo?: string
+  estado?: string
+  cp?: string
+  nacional?: string
+  r_curp?: string
+  num_escritura?: string
+  fec_alta?: string
+  fec_baja?: string
+  fec_react?: string
+  estatus?: number
+  contact?: Array<any>
+  coverage?: Array<any>
+
 }
 
 const Page = () => {
@@ -53,13 +77,26 @@ const Page = () => {
   const { handleSubmit } = form
   const [providers, setProviders] = useState([])
   const [loading, setLoading] = useState(false)
+  const [data, setData] = useState<ProviderData>()
   const { toast } = useToast()
+  const router = useRouter()
   
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async ({provider}) => {
     setLoading(true)
-    setTimeout(() => {
+    setData(undefined)
+    try {
+      const response = await getProviderById(provider)
+      const { data } = response
+      setData(data)
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "No se pudieron obtener los datos",
+        variant: "destructive",
+      })
+    } finally {
       setLoading(false)
-    }, 2000)
+    }
   }
   
   useEffect(() => {
@@ -124,6 +161,23 @@ const Page = () => {
           </div>
         </form>
       </Form>
+        {
+        loading && <Card><div className="flex justify-center items-center h-20">
+            <Loader2 className="h-10 w-10 animate-spin" />
+        </div></Card>
+        }
+        {data && 
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <FormSectionHeader title="Proveedor" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <EditForm provider={data} />
+            </CardContent>
+          </Card>
+        }
     </div>
   )
 }

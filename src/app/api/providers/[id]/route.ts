@@ -18,7 +18,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function GET({ params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const response = await fetch(`${process.env.API_URL}providers/${params.id}`, {
       method: 'GET',

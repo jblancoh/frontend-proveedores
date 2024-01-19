@@ -26,6 +26,7 @@ async function getAllProviders() {
       headers: {
         'Content-Type': 'application/json'
       },
+      cache: 'no-store'
     });
     if (!response.ok) {
       throw new Error(response.statusText);
@@ -37,13 +38,18 @@ async function getAllProviders() {
 }
 
 async function getProviderById(id) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-  });
-  return response.json();
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/${id}`, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
+    return response.json();
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 async function updateProviderById(id, data) {
