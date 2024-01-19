@@ -26,7 +26,7 @@ type FormValues = {
   businessName: string,
   commercialName: string,
   website:  string,
-  constitutionDate: string,
+  constitutionDate: Date,
   state:  string,
   fullAddress:  string,
   postalCode: string,
@@ -123,7 +123,7 @@ const Page = () => {
         description: "No se pudo crear el proveedor",
         variant: "destructive",
       })
-      router.push("/home")
+      router.push("home")
     } finally {
       setLoading(false)
     }
