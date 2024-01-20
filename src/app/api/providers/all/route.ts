@@ -6,8 +6,8 @@ export async function GET() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-store'
       },
+      cache: 'no-store'
     })
     if (!response.ok) {
       throw new Error(response.statusText || 'Unknown error')
