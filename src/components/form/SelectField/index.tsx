@@ -5,8 +5,6 @@ import {
   FormItem,
   FormField,
   FormLabel,
-  FormDescription,
-  FormMessage,
 } from "@/components/ui/form"
 import {
   Select,
@@ -17,7 +15,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Label } from '@/components/ui/label';
-import Link from 'next/link';
 
 interface SelectFieldProps {
   form: any;
@@ -34,20 +31,30 @@ export const SelectField: FC<SelectFieldProps> = ({ form, name, label, data}) =>
       render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <Select
+            onValueChange={field.onChange}
+            defaultValue={field.value}
+          >
             <FormControl>
               <SelectTrigger>
                 <SelectValue placeholder="Selecciona un proveedor" />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-               {
+              {
+                data?.length === 0 ?
+                  <div className='p-2'>
+                    <Label>No hay proveedores registrados</Label>
+                  </div>
+                :
                   data.map((provider, index) => {
                     return (
-                      <SelectItem key={index} value={provider.id.toString()}>{`${provider.nomcomm} - ${provider.rfc || ""} - ${provider.nomraz || ""}`}</SelectItem>
+                      <SelectGroup>
+                        <SelectItem key={index} value={provider.id.toString()}>{`${provider.nomcomm} - ${provider.rfc || ""} - ${provider.nomraz || ""}`}</SelectItem>
+                      </SelectGroup>
                     )
                   })
-               }
+              }
             </SelectContent>
           </Select>
         </FormItem>

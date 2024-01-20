@@ -12,25 +12,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { deleteProviderById, getAllProviders, getProviderById, activeProviderById } from "@/services"
-import { Suspense, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import IconSearch from "@/components/IconSearch"
 import { Loader2 } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 import { SelectField } from "@/components/form/SelectField"
-import { useRouter } from "next/navigation"
 import EditForm from "@/components/EditForm"
 import { Input } from "@/components/ui/input"
-import { is } from "date-fns/locale"
 
 type FormValues = {
   businessName?: string
@@ -129,6 +119,7 @@ const Page = () => {
         variant: "success",
       })
       isDelete && setData(undefined)
+      !isDelete && data && setData({...data, estatus: 1})
       const response = await getAllProviders()
       const providers = response.data
 
