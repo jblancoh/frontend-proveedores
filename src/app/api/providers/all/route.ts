@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+export const revalidate = false
 
 export async function GET() {
   try {
