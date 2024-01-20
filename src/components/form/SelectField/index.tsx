@@ -49,8 +49,8 @@ export const SelectField: FC<SelectFieldProps> = ({ form, name, label, data}) =>
                 :
                   data.map((provider, index) => {
                     return (
-                      <SelectGroup>
-                        <SelectItem key={index} value={provider.id.toString()}>{`${provider.nomcomm} - ${provider.rfc || ""} - ${provider.nomraz || ""}`}</SelectItem>
+                      <SelectGroup key={index} >
+                        <SelectItem value={provider.id.toString()}>{`${provider.nomcomm} - ${provider.rfc || ""} - ${provider.nomraz || ""}`}</SelectItem>
                       </SelectGroup>
                     )
                   })
