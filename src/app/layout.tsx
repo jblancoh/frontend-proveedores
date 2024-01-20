@@ -21,7 +21,7 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
       <body className={inter.className}>
         <NavBar />
         <main className="h-screen mx-auto px-4 py-4">
-          <div>
+          <div className="container mx-auto">
             {children}
           </div>
         </main>

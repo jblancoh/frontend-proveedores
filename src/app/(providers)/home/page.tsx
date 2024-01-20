@@ -43,7 +43,7 @@ const Page = () => {
               variant="radius"
               onClick={() => router.push('reports')}
             >
-              Generar report
+              Generar reporte
             </Button>
           </CardFooter>
         </Card>

@@ -26,7 +26,7 @@ const NavBar = () => {
           href=""
           passHref
         >
-          <Label className="text-white">CUSTOMER MODEL RADIUS - CMR</Label>
+          <Label className="text-white">Provider Managment Radius - PMR</Label>
         </Link>
       </div>
     </div>
