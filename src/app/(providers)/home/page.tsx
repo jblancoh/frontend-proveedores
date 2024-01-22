@@ -10,8 +10,11 @@ import {
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast"
 
 const Page = () => {
+  const { toast } = useToast()
+
   const router = useRouter()
   return (
     <div>

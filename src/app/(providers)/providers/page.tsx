@@ -21,6 +21,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { SelectField } from "@/components/form/SelectField"
 import EditForm from "@/components/EditForm"
 import { Input } from "@/components/ui/input"
+import { ToastAction } from "@/components/ui/toast"
 
 type FormValues = {
   businessName?: string
@@ -117,14 +118,13 @@ const Page = () => {
         title: isDelete ? "Proveedor dado de baja" : "Proveedor dado de alta",
         description: isDelete ? "El proveedor ha sido dado de baja exitosamente" : "El proveedor ha sido dado de alta exitosamente",
         variant: "success",
+        action: <ToastAction className="bg-radius text-white hover:bg-slate-500" altText="Ok">Ok</ToastAction>
       })
-      isDelete && setData(undefined)
-      !isDelete && data && setData({...data, estatus: 1})
+      data && setData({...data, estatus: !isDelete ? 1 : 0 })
       const response = await getAllProviders()
       const providers = response.data
 
       setProviders(providers)
-      form.reset()
     } catch (error) {
       toast({
         title: "Error",
