@@ -1,5 +1,6 @@
 
 import IconHome from "@/components/IconHome";
+import IconLogout from "@/components/IconLogout";
 import Menu from "@/components/Menu";
 
 interface ProvidersLayoutProps {
@@ -11,8 +12,9 @@ const ProvidersLayout: React.FC<ProvidersLayoutProps> = ({ children }) => {
     <div className="container mx-auto">
       <div className="flex justify-between pb-2">
         <IconHome />
-        <div className="">
+        <div className="flex flex-row items-center">
           <Menu />
+          <IconLogout />
         </div>
       </div>
       {children}
