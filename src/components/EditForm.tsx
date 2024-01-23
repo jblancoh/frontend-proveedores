@@ -28,7 +28,7 @@ interface ProviderData {
   id: string
   nomraz: string
   nomcomm: string
-  website?: URL,
+  website?: URL | string,
   rfc?: string
   p_curp?: string
   obj_social?: string
@@ -60,13 +60,13 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
         id: provider.id,
         businessName: provider.nomraz,
         commercialName: provider.nomcomm,
-        website: provider.website,
+        website: provider.website ?? '',
         constitutionDate: provider.fec_const,
         state: provider.estado,
         fullAddress: provider.domicilio,
         postalCode: provider.cp,
         delegation: provider.delmpo,
-        rfc: provider.rfc,
+        rfc: provider.rfc ?? '',
         socialObjective: provider.obj_social,
         economicActivity: provider.act_econom,
         speciality: provider.especialidad,

@@ -34,7 +34,7 @@ interface ProviderData {
   id: string
   nomraz: string
   nomcomm: string
-  website?: URL,
+  website?: URL | string,
   rfc?: string
   p_curp?: string
   obj_social?: string
