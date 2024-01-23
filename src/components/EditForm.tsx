@@ -21,44 +21,8 @@ import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import DatePicker from "@/components/DatePicker"
 import { ToastAction } from "./ui/toast"
-
-type FormValues = {
-  id?: string,
-  businessName: string,
-  commercialName: string,
-  website?: URL,
-  constitutionDate?: string,
-  state?: string,
-  fullAddress?: string,
-  postalCode?: string,
-  delegation?: string,
-  rfc?: string,
-  socialObjective?: string,
-  economicActivity?: string,
-  specialty?: string,
-  legalRepresentativeFullName?: string,
-  legalRepresentativeOfficePhone?: string,
-  legalRepresentativeMobilePhone?: string,
-  legalRepresentativeEmail?: string,
-  generalDirectorFullName?: string,
-  generalDirectorOfficePhone?: string,
-  generalDirectorMobilePhone?: string,
-  generalDirectorEmail?: string,
-  tenderContactFullName?: string,
-  tenderContactOfficePhone?: string,
-  tenderContactMobilePhone?: string,
-  tenderContactEmail?: string,
-  administrativeContactFullName?: string,
-  administrativeContactOfficePhone?: string,
-  administrativeContactMobilePhone?: string,
-  administrativeContactEmail?: string,
-  west?: boolean,
-  east?: boolean,
-  northeast?: boolean,
-  northwest?: boolean,
-  southeast?: boolean,
-  center?: boolean,
-}
+import { ContactValues, FormValues } from "@/app/(providers)/create/page"
+import IconPlus from "./IconPlus"
 
 interface ProviderData {
   id: string
@@ -88,6 +52,8 @@ interface ProviderData {
 
 const EditForm = ({ provider }: { provider: ProviderData }) => {
   const { toast } = useToast()
+  const [showInputContact, setShowInputContact] = useState(false)
+  const [contact, setContact] = useState<ContactValues>({})
   const form = useForm(
     {
       defaultValues: {
@@ -103,30 +69,14 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
         rfc: provider.rfc,
         socialObjective: provider.obj_social,
         economicActivity: provider.act_econom,
-        specialty: provider.especialidad,
-        // legalRepresentativeFullName: provider.contact[0].nombre,
-        // legalRepresentativeOfficePhone: provider.contact[0].tel1,
-        // legalRepresentativeMobilePhone: provider.contact[0].tel2,
-        // legalRepresentativeEmail: provider.contact[0].email,
-        // generalDirectorFullName: provider.contact[1].nombre,
-        // generalDirectorOfficePhone: provider.contact[1].tel1,
-        // generalDirectorMobilePhone: provider.contact[1].tel2,
-        // generalDirectorEmail: provider.contact[1].email,
-        // tenderContactFullName: provider.contact[2].nombre,
-        // tenderContactOfficePhone: provider.contact[2].tel1,
-        // tenderContactMobilePhone: provider.contact[2].tel2,
-        // tenderContactEmail: provider.contact[2].email,
-        // administrativeContactFullName: provider.contact[3].nombre,
-        // administrativeContactOfficePhone: provider.contact[3].tel1,
-        // administrativeContactMobilePhone: provider.contact[3].tel2,
-        // administrativeContactEmail: provider.contact[3].email,
-        // west: provider.coverage[0].occidente,
-        // east: provider.coverage[0].oriente,
-        // northeast: provider.coverage[0].noreste,
-        // northwest: provider.coverage[0].noroeste,
-        // southeast: provider.coverage[0].sureste,
-        // center: provider.coverage[0].centro,
-
+        speciality: provider.especialidad,
+        contact: provider.contact ?? [],
+        west: provider.coverage?.includes("Occidente") ?? false,
+        east: provider.coverage?.includes("Oriente") ?? false,
+        northeast: provider.coverage?.includes("Noreste") ?? false,
+        northwest: provider.coverage?.includes("Noroeste") ?? false,
+        southeast: provider.coverage?.includes("Sureste") ?? false,
+        center: provider.coverage?.includes("Centro") ?? false,
       }
     }
   )
@@ -194,7 +144,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
                     <InputField form={form} name="socialObjective" label="Objetivo Social" multiple />
                   </div>
                   <InputField form={form} name="economicActivity" label="Actividad Economica" multiple />
-                  <InputField form={form} name="specialty" label="Especialidad" multiple />
+                  <InputField form={form} name="speciality" label="Especialidad" multiple />
                 </div>
               </CardContent>
             </Card>
@@ -207,39 +157,87 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-5 gap-4 py-4">
-                  <div className="col-span-5 grid grid-cols-4 gap-4">
-                    <InputField form={form} name="legalRepresentativeFullName" label="Apoderado Legal" />
-                    <InputField form={form} name="legalRepresentativeOfficePhone" label="Telefono Oficina" />
-                    <InputField form={form} name="legalRepresentativeMobilePhone" label="Telefono Movil" />
-                    <InputField form={form} name="legalRepresentativeEmail" label="Correo Electronico" />
-                  </div>
+                {/* Contactos */}
+                <div className="grid grid-flow-row gap-4 py-4">
+                  {
+                    form.getValues("contact").length > 0 && (
+                      <div className="grid grid-cols-5 gap-4">
+                        {
+                          form.watch("contact")?.map((item, index) => {
+                            return item?.title ? (
+                              <div className="col-span-5 grid grid-cols-4 gap-4" key={`${item.title}_${index}`}>
+                                <InputField form={form} name={`contact.${index}.fullName`} label={item?.title || 'Titulo'} placeholder="Nombre completo" />
+                                <InputField form={form} name={`contact.${index}.officePhone`} label="Telefono Oficina" />
+                                <InputField form={form} name={`contact.${index}.mobilePhone`} label="Telefono Movil" />
+                                <InputField form={form} name={`contact.${index}.email`} label="Correo Electronico" />
+                                <div className="col-span-5 gap-4">
+                                  <Separator />
+                                </div>
+                              </div>
+                            ) : null
+                          })
+                        }
+
+                      </div>
+                    )
+                  }
                   <div className="col-span-5 mt-2">
-                    <Separator />
-                  </div>
-                  <div className="col-span-5 grid grid-cols-4 gap-4">
-                    <InputField form={form} name="generalDirectorFullName" label="Director General" />
-                    <InputField form={form} name="generalDirectorOfficePhone" label="Telefono Oficina" />
-                    <InputField form={form} name="generalDirectorMobilePhone" label="Telefono Movil" />
-                    <InputField form={form} name="generalDirectorEmail" label="Correo Electronico" />
-                  </div>
-                  <div className="col-span-5 mt-2">
-                    <Separator />
-                  </div>
-                  <div className="col-span-5 grid grid-cols-4 gap-4">
-                    <InputField form={form} name="tenderContactFullName" label="Contacto Licitacion" />
-                    <InputField form={form} name="tenderContactOfficePhone" label="Telefono Oficina" />
-                    <InputField form={form} name="tenderContactMobilePhone" label="Telefono Movil" />
-                    <InputField form={form} name="tenderContactEmail" label="Correo Electronico" />
-                  </div>
-                  <div className="col-span-5 mt-2">
-                    <Separator />
-                  </div>
-                  <div className="col-span-5 grid grid-cols-4 gap-4">
-                    <InputField form={form} name="administrativeContactFullName" label="Contacto Administrativo" />
-                    <InputField form={form} name="administrativeContactOfficePhone" label="Telefono Oficina" />
-                    <InputField form={form} name="administrativeContactMobilePhone" label="Telefono Movil" />
-                    <InputField form={form} name="administrativeContactEmail" label="Correo Electronico" />
+                    <div className="flex justify-start gap-6">
+                      <div className="col-span-1 flex items-center">
+                        <IconPlus
+                          onClick={() => {
+                            setShowInputContact(!showInputContact)
+                            // add other {contact} to array
+                            form.setValue(
+                              `contact.${form.getValues("contact").length}`,
+                              {
+                                title: '',
+                                fullName: '',
+                                officePhone: '',
+                                mobilePhone: '',
+                                email: '',
+                              }
+                            )
+                          }}
+                        />
+                      </div>
+                      <div className="col-span-2 flex flex-row items-center gap-2">
+                        {
+                          showInputContact && (
+                            <>
+                              <InputField
+                                form={form}
+                                name="contactTitle"
+                                placeholder="Título de contacto"
+                                className="py-0 space-y-2"
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                  setContact({
+                                    title: e.target.value,
+                                  })
+                                }}
+                              />
+                              <Button
+                                variant="radius"
+                                className="font-normal"
+                                type="button"
+                                onClick={
+                                  () => {
+                                    form.setValue(
+                                      `contact.${form.getValues("contact").length - 1}.title`,
+                                      contact.title ?? ''
+                                    )
+                                    setContact({})
+                                    setShowInputContact(false)
+                                  }
+                                }
+                              >
+                                Agregar
+                              </Button>
+                            </>
+                          )
+                        }
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CardContent>

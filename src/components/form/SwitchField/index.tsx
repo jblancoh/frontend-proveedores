@@ -21,7 +21,7 @@ export const SwitchField: FC<SwitchFieldProps> = ({ form, name, label}) => (
       render={({ field }) => {
         return <FormItem>
           <FormControl>
-            <div className='flex justify-center items-center gap-2'>
+            <div className='flex md:justify-center items-center gap-2'>
             <Switch id={name}
               onClick={() => {
                 form.setValue(name, !field.value)
