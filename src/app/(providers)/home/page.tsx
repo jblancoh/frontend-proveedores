@@ -10,8 +10,11 @@ import {
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast"
 
 const Page = () => {
+  const { toast } = useToast()
+
   const router = useRouter()
   return (
     <div>
@@ -20,44 +23,48 @@ const Page = () => {
       </div>
       <div className="grid md:grid-cols-3 gap-2 grid-rows-3">
         <Card>
-          <CardHeader className="h-2/3">
-            <CardTitle>Alta de Proveedor</CardTitle>
-            <CardDescription>Da de alta un proveedor con información básica de la empresa, directorrio de contacto y zona geográfica de cobertura.</CardDescription>
+          <CardHeader className="h-3/4">
+            <CardTitle className="text-base">Alta de Proveedor</CardTitle>
+            <CardDescription className="text-sm">Da de alta un proveedor con información básica de la empresa, directorrio de contacto y zona geográfica de cobertura.</CardDescription>
           </CardHeader>
           <CardFooter className="justify-end">
             <Button
               variant="radius"
               onClick={() => router.push('create')}
             >
-              Alta de Proveedor
+              <Label className="font-light">Alta de Proveedor</Label>
             </Button>
           </CardFooter>
         </Card>
         <Card>
-          <CardHeader className="h-2/3">
-            <CardTitle>Reportes</CardTitle>
-            <CardDescription>Genera reportes personalizados, de acuerdo a periodos de tiempo que necesites.</CardDescription>
+          <CardHeader className="h-3/4">
+            <CardTitle className="text-base">Reportes</CardTitle>
+            <CardDescription className="text-sm">Genera reportes personalizados, de acuerdo a periodos de tiempo que necesites.</CardDescription>
           </CardHeader>
           <CardFooter className="justify-end">
             <Button
               variant="radius"
               onClick={() => router.push('reports')}
             >
-              Generar reporte
+              <Label className="font-light">
+                Generar reporte
+              </Label>
             </Button>
           </CardFooter>
         </Card>
         <Card>
-          <CardHeader className="h-2/3">
-            <CardTitle>Mantenimiento</CardTitle>
-            <CardDescription>Da mantenimiento a tu cuenta.</CardDescription>
+          <CardHeader className="h-3/4">
+            <CardTitle className="text-base">Mantenimiento</CardTitle>
+            <CardDescription className="text-sm">Da mantenimiento a tu cuenta.</CardDescription>
           </CardHeader>
           <CardFooter className="justify-end">
             <Button
               variant="radius"
               onClick={() => router.push('maintenance')}
             >
-              Dar mantenimiento
+              <Label className="font-light">
+                Dar mantenimiento
+              </Label>
             </Button>
           </CardFooter>
         </Card>
