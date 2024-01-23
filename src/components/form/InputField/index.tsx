@@ -12,8 +12,9 @@ import { FC } from "react";
 interface InputFieldProps {
   form: any;
   name: string;
-  label: string;
+  label?: string;
   multiple?: boolean;
+  placeholder?: string;
   [key: string]: any;
 }
 
@@ -23,7 +24,7 @@ export const InputField: FC<InputFieldProps> = ({ form, name, label, multiple=fa
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="space-y-0">
           <FormLabel>{label}</FormLabel>
           <FormControl>
             {
