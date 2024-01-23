@@ -21,6 +21,7 @@ import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import DatePicker from "@/components/DatePicker"
+import { ToastAction } from "@/components/ui/toast"
 
 type FormValues = {
   businessName: string,
@@ -115,6 +116,7 @@ const Page = () => {
         title: "Success",
         description: "Se creo el proveedor",
         variant: "success",
+        action: <ToastAction className="bg-radius text-white hover:bg-slate-500" altText="Ok">Ok</ToastAction>
       })
       
     } catch (error) {

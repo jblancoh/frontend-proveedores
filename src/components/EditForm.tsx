@@ -15,12 +15,12 @@ import {
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
-import { createProviders, updateProviderById } from "@/services"
+import { updateProviderById } from "@/services"
 import { useToast } from "@/components/ui/use-toast"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
-import { useRouter } from "next/navigation"
 import DatePicker from "@/components/DatePicker"
+import { ToastAction } from "./ui/toast"
 
 type FormValues = {
   id?: string,
@@ -141,6 +141,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
         title: "Success",
         description: "Se actualizó el proveedor",
         variant: "success",
+        action: <ToastAction className="bg-radius text-white hover:bg-slate-500" altText="Ok">Ok</ToastAction>
       })
       
     } catch (error) {

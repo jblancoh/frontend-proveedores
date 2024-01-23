@@ -35,7 +35,9 @@ const Menu = () => {
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger 
-          className="hover:bg-radius hover:text-white focus:bg-radius focus:text-white"
+          className={`hover:bg-radius hover:text-white focus:bg-radius focus:text-white 
+            ${pathname === '/reports' && 'bg-radius text-white'}
+          `}
           onClick={() => router.push('reports')}
         >
           Reportes
@@ -43,7 +45,9 @@ const Menu = () => {
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger 
-          className="hover:bg-radius hover:text-white focus:bg-radius focus:text-white"
+          className={`hover:bg-radius hover:text-white focus:bg-radius focus:text-white 
+            ${pathname === '/maintenance' && 'bg-radius text-white'}
+          `}
           onClick={() => router.push('maintenance')}
         >
           Mantenimiento
