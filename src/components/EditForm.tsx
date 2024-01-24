@@ -17,7 +17,7 @@ import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { updateProviderById } from "@/services"
 import { useToast } from "@/components/ui/use-toast"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Loader2 } from "lucide-react"
 import DatePicker from "@/components/DatePicker"
 import { ToastAction } from "./ui/toast"
@@ -30,7 +30,6 @@ interface ProviderData {
   nomcomm: string
   website?: URL | string,
   rfc?: string
-  p_curp?: string
   obj_social?: string
   act_econom?: string
   especialidad?: string
@@ -41,7 +40,6 @@ interface ProviderData {
   estado?: string
   cp?: string
   nacional?: string
-  r_curp?: string
   num_escritura?: string
   estatus?: number
   contact?: Array<any>
@@ -80,16 +78,47 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
       }
     }
   )
+  
+  // values of form render whit change
+  
+  useEffect(() => {
+    form.setValue("id", provider.id)
+    form.setValue("businessName", provider.nomraz)
+    form.setValue("commercialName", provider.nomcomm)
+    form.setValue("website", provider.website ?? '')
+    form.setValue("constitutionDate", provider.fec_const)
+    form.setValue("state", provider.estado)
+    form.setValue("fullAddress", provider.domicilio)
+    form.setValue("postalCode", provider.cp)
+    form.setValue("delegation", provider.delmpo)
+    form.setValue("rfc", provider.rfc ?? '')
+    form.setValue("socialObjective", provider.obj_social)
+    form.setValue("economicActivity", provider.act_econom)
+    form.setValue("speciality", provider.especialidad)
+    form.setValue("contact", provider.contact ?? [])
+    form.setValue("west", provider.coverage?.includes("Occidente") ?? false)
+    form.setValue("east", provider.coverage?.includes("Oriente") ?? false)
+    form.setValue("northeast", provider.coverage?.includes("Noreste") ?? false)
+    form.setValue("northwest", provider.coverage?.includes("Noroeste") ?? false)
+    form.setValue("southeast", provider.coverage?.includes("Sureste") ?? false)
+    form.setValue("center", provider.coverage?.includes("Centro") ?? false)
+    
+      
+    
+  }, [provider])
+    
+  
+  
   const [loading, setLoading] = useState(false)
 
   const { handleSubmit } = form
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setLoading(true)
     try {
-      await updateProviderById(data.id, data)
+      const response = await updateProviderById(data.id, data)
       toast({
-        title: "Success",
-        description: "Se actualizó el proveedor",
+        title: "Proveedor actualizado con éxito",
+        description: `Se actualizó al proveedor ${response?.data?.nomraz} con número ${data.id}.`,
         variant: "success",
         action: <ToastAction className="bg-radius text-white hover:bg-slate-500" altText="Ok">Ok</ToastAction>
       })
@@ -117,33 +146,32 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-4 gap-4">
-                  <InputField form={form} name="businessName" label="Razon Social" />
-                  <InputField form={form} name="commercialName" label="Nombre Comercial" />
+                  <InputField form={form} name="businessName" label="Razón Social" />
+                  <InputField form={form} name="commercialName" label="Nombre comercial" />
                   <InputField form={form} name="rfc" label="RFC" />
-                  <InputField form={form} name="curp" label="CURP" />
                 </div>
                 <div className="grid grid-cols-3 gap-4 py-2">
                   <div className="self-center">
-                    <DatePicker form={form} name="constitutionDate" label="Fecha de Constitucion" />
+                    <DatePicker form={form} name="constitutionDate" label="Fecha de constitución" />
                   </div>
                   <div className="col-span-2">
-                    <InputField form={form} name="fullAddress" label="Domicilio Completo" />
+                    <InputField form={form} name="fullAddress" label="Domicilio completo" />
                   </div>
                 </div>
                 <div className="grid grid-cols-5 gap-4 py-2">
                   <InputField form={form} name="state" label="Estado" />
-                  <InputField form={form} name="delegation" label="Delegacion/Municipio" />
+                  <InputField form={form} name="delegation" label="Delegación/Municipio" />
                   <InputField form={form} name="postalCode" label="C.P." />
-                  <InputField form={form} name="website" label="Pagina Web" />
+                  <InputField form={form} name="website" label="Página web" />
                 </div>
                 <div className="grid grid-cols-5 gap-4">
                   <div className="col-span-5 mt-6">
                     <Separator />
                   </div>
                   <div className="col-start-2">
-                    <InputField form={form} name="socialObjective" label="Objetivo Social" multiple />
+                    <InputField form={form} name="socialObjective" label="Objetivo social" multiple />
                   </div>
-                  <InputField form={form} name="economicActivity" label="Actividad Economica" multiple />
+                  <InputField form={form} name="economicActivity" label="Actividad económica" multiple />
                   <InputField form={form} name="speciality" label="Especialidad" multiple />
                 </div>
               </CardContent>
@@ -167,9 +195,9 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
                             return item?.title ? (
                               <div className="col-span-5 grid grid-cols-4 gap-4" key={`${item.title}_${index}`}>
                                 <InputField form={form} name={`contact.${index}.fullName`} label={item?.title || 'Titulo'} placeholder="Nombre completo" />
-                                <InputField form={form} name={`contact.${index}.officePhone`} label="Telefono Oficina" />
-                                <InputField form={form} name={`contact.${index}.mobilePhone`} label="Telefono Movil" />
-                                <InputField form={form} name={`contact.${index}.email`} label="Correo Electronico" />
+                                <InputField form={form} name={`contact.${index}.officePhone`} label="Teléfono Oficina" />
+                                <InputField form={form} name={`contact.${index}.mobilePhone`} label="Teléfono Movil" />
+                                <InputField form={form} name={`contact.${index}.email`} label="Correo" />
                                 <div className="col-span-5 gap-4">
                                   <Separator />
                                 </div>

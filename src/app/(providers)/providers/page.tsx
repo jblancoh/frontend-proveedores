@@ -36,7 +36,6 @@ interface ProviderData {
   nomcomm: string
   website?: URL | string,
   rfc?: string
-  p_curp?: string
   obj_social?: string
   act_econom?: string
   especialidad?: string
@@ -47,7 +46,6 @@ interface ProviderData {
   estado?: string
   cp?: string
   nacional?: string
-  r_curp?: string
   num_escritura?: string
   estatus?: number
   contact?: Array<any>
@@ -56,6 +54,7 @@ interface ProviderData {
 }
 
 const Page = () => {
+  const [showEmpty, setShowEmpty] = useState(false)
   const form = useForm(
     {
       defaultValues: {
@@ -65,20 +64,74 @@ const Page = () => {
       }
     }
   )
-  const { handleSubmit } = form
+  const { handleSubmit, watch } = form
+  const watchBusinessName = watch('businessName')
+  const watchCommercialName = watch('commercialName')
+  
+  useEffect(() => {
+    if (watchBusinessName?.length > 0 || watchCommercialName?.length > 0) {
+      form.setValue('provider', "0")
+    }
+  }, [watchBusinessName, watchCommercialName])
+  
   const [providers, setProviders] = useState([])
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<ProviderData>()
   const [loadingAction, setLoadingAction] = useState(false)
+  const [filterData, setFilterData] = useState<ProviderData[] | undefined>([])
+  const [selectedProvider, setSelectedProvider] = useState<string | undefined>()
+
   const { toast } = useToast()
   
-  const onSubmit: SubmitHandler<FormValues> = async ({provider}) => {
+  const onSubmit: SubmitHandler<FormValues> = async ({ provider, businessName, commercialName }) => {
     setLoading(true)
     setData(undefined)
+    if((!provider || provider === "0") && !businessName && !commercialName) {
+      toast({
+        title: "Error",
+        description: "Debes ingresar al menos un campo",
+        variant: "destructive",
+      })
+      setLoading(false)
+      return
+    }
     try {
-      const response = await getProviderById(provider)
-      const { data } = response
-      setData(data)
+      onFilter({businessName, commercialName, provider})
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "No se pudieron obtener los datos",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  const onFilter = async ({businessName, commercialName, provider}: FormValues) => {
+    setLoading(true)
+    setData(undefined)
+    if (provider && provider !== "0") {
+      const FilterProviders = providers.find((item: ProviderData) => item.id == provider)
+      setShowEmpty(false)
+      form.setValue('businessName', '')
+      form.setValue('commercialName', '')
+      setFilterData([])
+      setData(FilterProviders)
+      return 
+    }
+    try {
+      const dataFilter = providers.filter((provider: ProviderData) => {
+        if (provider.nomraz.toLowerCase().includes(businessName?.toLowerCase() || "") && provider.nomcomm.toLowerCase().includes(commercialName?.toLowerCase() || "")) {
+          return provider
+        }
+      })
+      if (dataFilter.length === 0) {
+        setShowEmpty(true)
+      } else {
+        setShowEmpty(false)
+      }
+      setFilterData(dataFilter)
     } catch (error) {
       toast({
         title: "Error",
@@ -95,7 +148,13 @@ const Page = () => {
       try {
         const response = await getAllProviders()
         const providers = response.data
+        const emptyProvider = {
+          id: 0,
+          nomcomm: "Selecciona un proveedor",
+          nomraz: "",
+        }
         
+        providers.unshift(emptyProvider)
         setProviders(providers)
       } catch (error: any) {
         toast({
@@ -138,6 +197,11 @@ const Page = () => {
     
   }
   
+  const handleFilter = async (provider: ProviderData) => {
+    setData(provider)
+    setSelectedProvider(provider?.id)
+  }
+  
   return (
     <div className="pb-10">
       <Form {...form}>
@@ -153,7 +217,7 @@ const Page = () => {
                 <div className="grid grid-cols-4 gap-4 justify-center items-end">
                   <SelectField form={form} name="provider" label="Proveedor" data={providers} />
                   <div className="col-span-1">
-                    <InputField form={form} name="businessName" label="Razon Social" />
+                    <InputField form={form} name="businessName" label="Razón social" />
                   </div>
                   <div className="col-span-1">
                     <InputField form={form} name="commercialName" label="Nombre Comercial" />
@@ -176,7 +240,27 @@ const Page = () => {
                     </Button>
                   </div>
                 </div>
-                
+                {
+                  filterData && filterData.length > 0 ?
+                    <div className="grid grid-cols-7 mt-4 gap-4 grid-flow-row">
+                      {
+                        filterData.map((provider: ProviderData) => (
+                          <Card className={`col-span-1 justify-center items-center flex h-14 cursor-pointer hover:bg-radius hover:text-white ${selectedProvider === provider.id ? 'bg-radius text-white' : 'bg-white'}`} onClick={() => handleFilter(provider)}>
+                            <CardTitle className="text-center text-sm mx-2">
+                              <Label className="text-ellipsis cursor-pointer">
+                                {provider.nomraz}
+                              </Label>
+                            </CardTitle>
+                          </Card>
+                        ))
+                      }
+                    </div>
+                  :
+                    showEmpty &&
+                    <div className="flex justify-center items-center h-20 mt-10">
+                      <Label className="font-normal text-lg">No se encontraron resultados</Label>
+                    </div>
+                }
               </CardContent>
             </Card>
           </div>
