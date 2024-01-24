@@ -33,7 +33,7 @@ export const SelectField: FC<SelectFieldProps> = ({ form, name, label, data}) =>
           <FormLabel>{label}</FormLabel>
           <Select
             onValueChange={field.onChange}
-            defaultValue={field.value}
+            value={field.value}
           >
             <FormControl>
               <SelectTrigger>
@@ -50,7 +50,7 @@ export const SelectField: FC<SelectFieldProps> = ({ form, name, label, data}) =>
                   data.map((provider, index) => {
                     return (
                       <SelectGroup key={index} >
-                        <SelectItem value={provider.id.toString()}>{`${provider.nomcomm} - ${provider.rfc || ""} - ${provider.nomraz || ""}`}</SelectItem>
+                        <SelectItem value={provider.id.toString()}>{`${provider.nomraz || ""} ${provider.rfc || ""} ${provider.nomcomm || ""}`}</SelectItem>
                       </SelectGroup>
                     )
                   })

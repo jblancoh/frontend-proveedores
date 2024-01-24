@@ -27,7 +27,6 @@ const createData = (data) => {
     nomcomm: data.commercialName,
     website: data.website,
     rfc: data.rfc,
-    p_curp: data.curp || '',
     obj_social: data.socialObjective,
     act_econom: data.economicActivity,
     especialidad: data.speciality,
@@ -36,7 +35,6 @@ const createData = (data) => {
     estado: data.state,
     cp: data.postalCode,
     nacional: "MEX",
-    r_curp: data.curp || '',
     fec_const: data.constitutionDate,
     estatus: 1,
     contact: data.contact.map(item => {
