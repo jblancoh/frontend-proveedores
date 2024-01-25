@@ -43,7 +43,7 @@ const Menu = () => {
           Reportes
         </MenubarTrigger>
       </MenubarMenu>
-      <MenubarMenu>
+      {/* <MenubarMenu>
         <MenubarTrigger 
           className={`hover:bg-radius hover:text-white focus:bg-radius focus:text-white 
             ${pathname === '/maintenance' && 'bg-radius text-white'}
@@ -52,7 +52,7 @@ const Menu = () => {
         >
           Mantenimiento
         </MenubarTrigger>
-      </MenubarMenu>
+      </MenubarMenu> */}
     </Menubar>
   )
 }

@@ -52,7 +52,7 @@ const Page = () => {
             </Button>
           </CardFooter>
         </Card>
-        <Card>
+        {/* <Card>
           <CardHeader className="h-3/4">
             <CardTitle className="text-base">Mantenimiento</CardTitle>
             <CardDescription className="text-sm">Da mantenimiento a tu cuenta.</CardDescription>
@@ -67,7 +67,7 @@ const Page = () => {
               </Label>
             </Button>
           </CardFooter>
-        </Card>
+        </Card> */}
       </div>
     </div>
   );

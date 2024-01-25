@@ -7,9 +7,9 @@ export default function NotFound() {
   const router = useRouter()
   return (
     <div className='justify-center h-screen flex flex-col items-center gap-8'>
-      <Label className="text-radius font-bold text-3xl">¡Pagina no encontrada!</Label>
+      <Label className="text-radius font-bold text-3xl">Página no encontrada!</Label>
       <Label className='text-2xl mb-2'>
-        Lo sentimos, no encontramos la pagina que buscas.
+        Lo sentimos, no encontramos la página que buscas.
       </Label>
       <Button
         variant="radius"
