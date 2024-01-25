@@ -24,7 +24,7 @@ import DatePicker from "@/components/DatePicker"
 import { ToastAction } from "@/components/ui/toast"
 import IconPlus from "@/components/IconPlus"
 
-const IS_DEV = process.env.NODE_ENV !== "development"
+const IS_DEV = process.env.NODE_ENV === "development"
 
 export type ContactValues = {
   title?: string,
