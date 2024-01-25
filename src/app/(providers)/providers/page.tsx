@@ -245,7 +245,7 @@ const Page = () => {
                     <div className="grid grid-cols-7 mt-4 gap-4 grid-flow-row">
                       {
                         filterData.map((provider: ProviderData) => (
-                          <Card className={`col-span-1 justify-center items-center flex h-14 cursor-pointer hover:bg-radius hover:text-white ${selectedProvider === provider.id ? 'bg-radius text-white' : 'bg-white'}`} onClick={() => handleFilter(provider)}>
+                          <Card key={provider.id} className={`col-span-1 justify-center items-center flex h-14 cursor-pointer hover:bg-radius hover:text-white ${selectedProvider === provider.id ? 'bg-radius text-white' : 'bg-white'}`} onClick={() => handleFilter(provider)}>
                             <CardTitle className="text-center text-sm mx-2">
                               <Label className="text-ellipsis cursor-pointer">
                                 {provider.nomraz}

@@ -9,11 +9,11 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const Page = () => {
+  return redirect('not-found')
   const router = useRouter()
-  return router.push('not-found')
   return (
     <div>
       <div className="pb-2">
