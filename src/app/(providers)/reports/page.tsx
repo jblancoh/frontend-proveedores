@@ -2,17 +2,59 @@
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+
 
 const Page = () => {
+  const [loadingActive, setLoadingActive] = useState(false)
+  const [loadingInactive, setLoadingInactive] = useState(false)
+  const [loadingTopTen, setLoadingTopTen] = useState(false)
   const router = useRouter()
+  const { toast } = useToast()
+
+  const getReport = async (type: number) => {
+    const setLoading = type === 1 ? setLoadingActive : type === 10 ? setLoadingTopTen : setLoadingInactive
+    
+    setLoading(true)
+
+    const response = await fetch(`/api/reports?type=${type}`)
+    try {
+      if (response.ok) {
+        const data = await response.blob();
+        const url = window.URL.createObjectURL(data);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `reportes_${type === 1 ? 'activos' : type === 10 ? 'top-ten' :'inactivos'}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      } else {
+        throw new Error('Algo salió mal')
+      }
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Algo salió mal',
+        variant: "destructive",
+      })
+      return
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  
   return (
     <div>
       <div className="pb-2">
@@ -29,7 +71,7 @@ const Page = () => {
               variant="radius"
               onClick={() => router.push('reports/ad-hoc')}
             >
-              <Label className="font-light">Generar reporte</Label>
+              <Label className="font-light cursor-pointer]">Descargar reporte</Label>
             </Button>
           </CardFooter>
         </Card>
@@ -41,9 +83,11 @@ const Page = () => {
           <CardFooter className="justify-end">
             <Button
               variant="radius"
-              onClick={() => router.push('reports/active')}
+              onClick={() => getReport(1)}
             >
-              <Label className="font-light">Descargar reporte</Label>
+              {
+                loadingActive ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Label className="font-light cursor-pointer">Descargar reporte</Label>
+              }
             </Button>
           </CardFooter>
         </Card>
@@ -55,9 +99,11 @@ const Page = () => {
           <CardFooter className="justify-end">
             <Button
               variant="radius"
-              onClick={() => router.push('reports/inactive')}
+              onClick={() => getReport(0)}
             >
-              <Label className="font-light">Descargar reporte</Label>
+              {
+                loadingInactive ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Label className="font-light cursor-pointer">Descargar reporte</Label>
+              }
             </Button>
           </CardFooter>
         </Card>
@@ -69,9 +115,11 @@ const Page = () => {
           <CardFooter className="justify-end">
             <Button
               variant="radius"
-              onClick={() => router.push('reports/top-ten')}
+              onClick={() => getReport(10)}
             >
-              <Label className="font-light">Descargar reporte</Label>
+              {
+                loadingTopTen ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Label className="font-light cursor-pointer">Descargar reporte</Label>
+              }
             </Button>
           </CardFooter>
         </Card>
