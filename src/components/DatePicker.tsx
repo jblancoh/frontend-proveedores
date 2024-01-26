@@ -31,15 +31,15 @@ const DatePicker = ({ form, name, label}: DatePickerProps) => {
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex flex-col">
-          <FormLabel className="my-1">{label}</FormLabel>
+        <FormItem className="flex flex-col space-y-1">
+          <FormLabel className="">{label}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "w-full justify-start text-left font-normal",
+                    "w-full justify-start text-left font-normal hover:bg-slate-300",
                     !field.value && "text-muted-foreground"
                   )}
                 >
