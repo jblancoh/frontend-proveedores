@@ -63,7 +63,7 @@ const Page = () => {
       <div className="grid md:grid-cols-4 gap-2 grid-rows-4">
         <Card>
           <CardHeader className="h-3/4">
-            <CardTitle className="text-base">Reporte Ad hoc</CardTitle>
+            <CardTitle className="text-base">Reporte <Label className="italic font-semibold text-base">ad hoc</Label></CardTitle>
             <CardDescription className="text-sm">Genera reportes de proveedores de acuerdo a la información que necesites.</CardDescription>
           </CardHeader>
           <CardFooter className="justify-end">
@@ -94,7 +94,7 @@ const Page = () => {
         <Card>
           <CardHeader className="h-3/4">
             <CardTitle className="text-base">Reporte Inactivos</CardTitle>
-            <CardDescription className="text-sm">Crea un reporte de proveedores inactivos o en estado de Baja, con toda su información relacionada.</CardDescription>
+            <CardDescription className="text-sm">Crea un reporte de proveedores inactivos o en estado de baja, con toda su información relacionada.</CardDescription>
           </CardHeader>
           <CardFooter className="justify-end">
             <Button

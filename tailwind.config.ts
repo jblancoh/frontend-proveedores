@@ -54,6 +54,7 @@ const config = {
         },
         radius: {
           DEFAULT: "hsl(var(--radius-background))",
+          foreground: "hsl(var(--radius-foreground))",
         },
       },
       borderRadius: {

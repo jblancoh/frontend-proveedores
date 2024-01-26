@@ -25,7 +25,7 @@ const Page = () => {
         <Card>
           <CardHeader className="h-3/4">
             <CardTitle className="text-base">Alta de Proveedor</CardTitle>
-            <CardDescription className="text-sm">Da de alta un proveedor con información básica de la empresa, directorrio de contacto y zona geográfica de cobertura.</CardDescription>
+            <CardDescription className="text-sm">Da de alta un proveedor con información básica de la empresa, directorio de contacto y zona geográfica de cobertura.</CardDescription>
           </CardHeader>
           <CardFooter className="justify-end">
             <Button
@@ -39,7 +39,7 @@ const Page = () => {
         <Card>
           <CardHeader className="h-3/4">
             <CardTitle className="text-base">Reportes</CardTitle>
-            <CardDescription className="text-sm">Genera reportes personalizados, de acuerdo a periodos de tiempo que necesites.</CardDescription>
+            <CardDescription className="text-sm">Genera reportes personalizados, de acuerdo a periodos de tiempo que se necesite.</CardDescription>
           </CardHeader>
           <CardFooter className="justify-end">
             <Button

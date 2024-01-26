@@ -141,9 +141,11 @@ const Page = () => {
                   <InputField form={form} name="businessName" label="Razón social" />
                   <InputField form={form} name="commercialName" label="Nombre comercial" />
                   <InputField form={form} name="rfc" label="RFC" />
+                  <InputField form={form} name="website" label="Página web" />
+
                 </div>
                 <div className="grid grid-flow-row md:grid-cols-3 gap-4 py-2">
-                  <div className="self-center">
+                  <div className="self-end">
                     <DatePicker form={form} name="constitutionDate" label="Fecha de constitución" />
                   </div>
                   <div className="col-span-2">
@@ -154,15 +156,12 @@ const Page = () => {
                   <InputField form={form} name= "state" label="Estado" />
                   <InputField form={form} name= "delegation" label="Delegación/Municipio" />
                   <InputField form={form} name= "postalCode" label="C.P." />
-                  <InputField form={form} name="website" label="Página web" />
                 </div>
-                <div className="grid grid-flow-3 md:grid-cols-5 gap-4 items-center ">
-                  <div className="md:col-span-5 mt-6">
+                <div className="grid grid-flow-3 md:grid-cols-3 gap-4 items-center ">
+                  <div className="md:col-span-3 mt-6">
                     <Separator />
                   </div>
-                  <div className=" md:col-start-2">
                     <InputField form={form} name="socialObjective" label="Objetivo social" multiple />
-                  </div>
                     <InputField form={form} name="economicActivity" label="Actividad económica" multiple />
                     <InputField form={form} name="speciality" label="Especialidad" multiple />
                 </div>
