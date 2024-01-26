@@ -23,6 +23,7 @@ import DatePicker from "@/components/DatePicker"
 import { ToastAction } from "./ui/toast"
 import { ContactValues, FormValues } from "@/app/(providers)/create/page"
 import IconPlus from "./IconPlus"
+import { contactFormatToForm } from "@/utils"
 
 interface ProviderData {
   id: string
@@ -47,6 +48,14 @@ interface ProviderData {
   fec_const?: string
 }
 
+type Contact = {
+  title: string
+  fullName: string
+  officePhone: string
+  mobilePhone: string
+  email: string
+}
+
 
 const EditForm = ({ provider }: { provider: ProviderData }) => {
   const { toast } = useToast()
@@ -68,16 +77,16 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
         socialObjective: provider.obj_social,
         economicActivity: provider.act_econom,
         speciality: provider.especialidad,
-        contact: provider.contact ?? [],
-        west: provider.coverage?.includes("Occidente") ?? false,
-        east: provider.coverage?.includes("Oriente") ?? false,
-        northeast: provider.coverage?.includes("Noreste") ?? false,
-        northwest: provider.coverage?.includes("Noroeste") ?? false,
-        southeast: provider.coverage?.includes("Sureste") ?? false,
-        center: provider.coverage?.includes("Centro") ?? false,
+        contact: contactFormatToForm(provider.contact) ?? [],
+        west: !!provider.coverage?.find((item) => item.nombre === "Occidente"),
+        east: !!provider.coverage?.find((item) => item.nombre === "Oriente"),
+        northeast: !!provider.coverage?.find((item) => item.nombre === "Noreste"),
+        northwest: !!provider.coverage?.find((item) => item.nombre === "Noroeste"),
+        southeast: !!provider.coverage?.find((item) => item.nombre === "Sureste"),
+        center: !!provider.coverage?.find((item) => item.nombre === "Centro"),
       }
     }
-  )
+    )
   
   // values of form render whit change
   
@@ -95,16 +104,13 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
     form.setValue("socialObjective", provider.obj_social)
     form.setValue("economicActivity", provider.act_econom)
     form.setValue("speciality", provider.especialidad)
-    form.setValue("contact", provider.contact ?? [])
-    form.setValue("west", provider.coverage?.includes("Occidente") ?? false)
-    form.setValue("east", provider.coverage?.includes("Oriente") ?? false)
-    form.setValue("northeast", provider.coverage?.includes("Noreste") ?? false)
-    form.setValue("northwest", provider.coverage?.includes("Noroeste") ?? false)
-    form.setValue("southeast", provider.coverage?.includes("Sureste") ?? false)
-    form.setValue("center", provider.coverage?.includes("Centro") ?? false)
-    
-      
-    
+    form.setValue("contact", contactFormatToForm(provider.contact) ?? [])
+    form.setValue("west", !!provider.coverage?.find((item) => item.nombre === "Occidente"))
+    form.setValue("east", !!provider.coverage?.find((item) => item.nombre === "Oriente"))
+    form.setValue("northeast", !!provider.coverage?.find((item) => item.nombre === "Noreste"))
+    form.setValue("northwest", !!provider.coverage?.find((item) => item.nombre === "Noroeste"))
+    form.setValue("southeast", !!provider.coverage?.find((item) => item.nombre === "Sureste"))
+    form.setValue("center", !!provider.coverage?.find((item) => item.nombre === "Centro"))
   }, [provider])
     
   
@@ -191,7 +197,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
                     form.getValues("contact").length > 0 && (
                       <div className="grid grid-cols-5 gap-4">
                         {
-                          form.watch("contact")?.map((item, index) => {
+                          form.watch("contact")?.map((item: Contact , index: number) => {
                             return item?.title ? (
                               <div className="col-span-5 grid grid-cols-4 gap-4" key={`${item.title}_${index}`}>
                                 <InputField form={form} name={`contact.${index}.fullName`} label={item?.title || 'Titulo'} placeholder="Nombre completo" />
@@ -215,7 +221,6 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
                         <IconPlus
                           onClick={() => {
                             setShowInputContact(!showInputContact)
-                            // add other {contact} to array
                             form.setValue(
                               `contact.${form.getValues("contact").length}`,
                               {
