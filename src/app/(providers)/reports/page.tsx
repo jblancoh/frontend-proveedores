@@ -23,7 +23,7 @@ const Page = () => {
   const { toast } = useToast()
 
   const getReport = async (type: number) => {
-    const setLoading = type === 1 ? setLoadingActive : type === 10 ? setLoadingTopTen : setLoadingInactive
+    const setLoading = type === 1 ? setLoadingActive : type === 2 ? setLoadingTopTen : setLoadingInactive
     
     setLoading(true)
 
@@ -34,7 +34,7 @@ const Page = () => {
         const url = window.URL.createObjectURL(data);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `reportes_${type === 1 ? 'activos' : type === 10 ? 'top-ten' :'inactivos'}.csv`;
+        a.download = `reportes_${type === 1 ? 'activos' : type === 2 ? 'top-ten' :'inactivos'}.csv`;
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -115,7 +115,7 @@ const Page = () => {
           <CardFooter className="justify-end">
             <Button
               variant="radius"
-              onClick={() => getReport(10)}
+              onClick={() => getReport(2)}
             >
               {
                 loadingTopTen ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Label className="font-light cursor-pointer">Descargar reporte</Label>
