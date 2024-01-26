@@ -14,7 +14,7 @@ const ProvidersLayout: React.FC<ProvidersLayoutProps> = ({ children }) => {
         <IconHome />
         <div className="flex flex-row items-center">
           <Menu />
-          <IconLogout />
+          {/* <IconLogout /> */}
         </div>
       </div>
       {children}
