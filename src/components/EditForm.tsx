@@ -61,32 +61,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
   const { toast } = useToast()
   const [showInputContact, setShowInputContact] = useState(false)
   const [contact, setContact] = useState<ContactValues>({})
-  const form = useForm(
-    {
-      defaultValues: {
-        id: provider.id,
-        businessName: provider.nomraz,
-        commercialName: provider.nomcomm,
-        website: provider.website ?? '',
-        constitutionDate: provider.fec_const,
-        state: provider.estado,
-        fullAddress: provider.domicilio,
-        postalCode: provider.cp,
-        delegation: provider.delmpo,
-        rfc: provider.rfc ?? '',
-        socialObjective: provider.obj_social,
-        economicActivity: provider.act_econom,
-        speciality: provider.especialidad,
-        contact: contactFormatToForm(provider.contact) ?? [],
-        west: !!provider.coverage?.find((item) => item.nombre === "Occidente"),
-        east: !!provider.coverage?.find((item) => item.nombre === "Oriente"),
-        northeast: !!provider.coverage?.find((item) => item.nombre === "Noreste"),
-        northwest: !!provider.coverage?.find((item) => item.nombre === "Noroeste"),
-        southeast: !!provider.coverage?.find((item) => item.nombre === "Sureste"),
-        center: !!provider.coverage?.find((item) => item.nombre === "Centro"),
-      }
-    }
-    )
+  const form = useForm()
   
   // values of form render whit change
   
@@ -112,8 +87,6 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
     form.setValue("southeast", !!provider.coverage?.find((item) => item.nombre === "Sureste"))
     form.setValue("center", !!provider.coverage?.find((item) => item.nombre === "Centro"))
   }, [provider])
-    
-  
   
   const [loading, setLoading] = useState(false)
 
@@ -155,6 +128,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
                   <InputField form={form} name="businessName" label="Razón Social" />
                   <InputField form={form} name="commercialName" label="Nombre comercial" />
                   <InputField form={form} name="rfc" label="RFC" />
+                  <InputField form={form} name="website" label="Página web" />
                 </div>
                 <div className="grid grid-cols-3 gap-4 py-2">
                   <div className="self-center">
@@ -168,15 +142,12 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
                   <InputField form={form} name="state" label="Estado" />
                   <InputField form={form} name="delegation" label="Delegación/Municipio" />
                   <InputField form={form} name="postalCode" label="C.P." />
-                  <InputField form={form} name="website" label="Página web" />
                 </div>
-                <div className="grid grid-cols-5 gap-4">
-                  <div className="col-span-5 mt-6">
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="col-span-3 mt-6">
                     <Separator />
                   </div>
-                  <div className="col-start-2">
-                    <InputField form={form} name="socialObjective" label="Objetivo social" multiple />
-                  </div>
+                  <InputField form={form} name="socialObjective" label="Objetivo social" multiple />
                   <InputField form={form} name="economicActivity" label="Actividad económica" multiple />
                   <InputField form={form} name="speciality" label="Especialidad" multiple />
                 </div>
@@ -194,7 +165,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
                 {/* Contactos */}
                 <div className="grid grid-flow-row gap-4 py-4">
                   {
-                    form.getValues("contact").length > 0 && (
+                    form.getValues("contact")?.length > 0 && (
                       <div className="grid grid-cols-5 gap-4">
                         {
                           form.watch("contact")?.map((item: Contact , index: number) => {
