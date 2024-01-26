@@ -8,6 +8,18 @@ const COVERAGE = {
   'center': { 'nombre': 'Centro', 'estatus': 1 },
 }
 
+const contactFormatToForm = (data) => {
+  return data.map(item => {
+    return {
+      fullName: item.nom_contact,
+      officePhone: item.tel_contact,
+      mobilePhone: item.tel_movil,
+      email: item.email_contact,
+      title: item.contact_cat.descripcion,
+    }
+  })
+}
+
 const coverageFormat = (data) => {
   const coverage = [
     data.west ? COVERAGE.west : null,
@@ -56,4 +68,5 @@ const createData = (data) => {
 
 export {
   createData,
+  contactFormatToForm,
 }

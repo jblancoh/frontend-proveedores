@@ -22,10 +22,12 @@ export const SwitchField: FC<SwitchFieldProps> = ({ form, name, label}) => (
         return <FormItem>
           <FormControl>
             <div className='flex md:justify-center items-center gap-2'>
-            <Switch id={name}
+            <Switch 
+              id={name}
               onClick={() => {
                 form.setValue(name, !field.value)
               }}
+              checked={field.value}
             />
             <Label htmlFor={name}>{label}</Label>
             </div>
