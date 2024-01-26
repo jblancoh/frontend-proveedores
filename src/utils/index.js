@@ -1,7 +1,7 @@
 
 const COVERAGE = {
-  'west': { 'nombre': 'Oeste', 'estatus': 1 },
-  'east': { 'nombre': 'Este', 'estatus': 1 },
+  'west': { 'nombre': 'Occidente', 'estatus': 1 },
+  'east': { 'nombre': 'Oriente', 'estatus': 1 },
   'northeast': { 'nombre': 'Noreste', 'estatus': 1 },
   'northwest': { 'nombre': 'Noroeste', 'estatus': 1 },
   'southeast': { 'nombre': 'Sureste', 'estatus': 1 },
