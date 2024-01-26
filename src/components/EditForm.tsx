@@ -61,7 +61,36 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
   const { toast } = useToast()
   const [showInputContact, setShowInputContact] = useState(false)
   const [contact, setContact] = useState<ContactValues>({})
-  const form = useForm()
+  const form = useForm({
+    defaultValues: {
+      id: '',
+      businessName: '',
+      commercialName: '',
+      website: '',
+      constitutionDate: '',
+      state: '',
+      fullAddress: '',
+      postalCode: '',
+      delegation: '',
+      rfc: '',
+      socialObjective: '',
+      economicActivity: '',
+      speciality: '',
+      contact: [{
+        title: '',
+        fullName: '',
+        officePhone: '',
+        mobilePhone: '',
+        email: '',
+      }],
+      west: false,
+      east: false,
+      northeast: false,
+      northwest: false,
+      southeast: false,
+      center: false,
+    } 
+  })
   
   // values of form render whit change
   
@@ -69,17 +98,17 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
     form.setValue("id", provider.id)
     form.setValue("businessName", provider.nomraz)
     form.setValue("commercialName", provider.nomcomm)
-    form.setValue("website", provider.website ?? '')
-    form.setValue("constitutionDate", provider.fec_const)
-    form.setValue("state", provider.estado)
-    form.setValue("fullAddress", provider.domicilio)
-    form.setValue("postalCode", provider.cp)
-    form.setValue("delegation", provider.delmpo)
+    form.setValue("website", String(provider.website) ?? '')
+    form.setValue("constitutionDate", provider.fec_const ?? '')
+    form.setValue("state", provider.estado ?? '')
+    form.setValue("fullAddress", provider.domicilio ?? '')
+    form.setValue("postalCode", provider.cp ?? '')
+    form.setValue("delegation", provider.delmpo ?? '')
     form.setValue("rfc", provider.rfc ?? '')
-    form.setValue("socialObjective", provider.obj_social)
-    form.setValue("economicActivity", provider.act_econom)
-    form.setValue("speciality", provider.especialidad)
-    form.setValue("contact", contactFormatToForm(provider.contact) ?? [])
+    form.setValue("socialObjective", provider.obj_social ?? '')
+    form.setValue("economicActivity", provider.act_econom ?? '')
+    form.setValue("speciality", provider.especialidad ?? '')
+    form.setValue("contact", contactFormatToForm(provider.contact) || [])
     form.setValue("west", !!provider.coverage?.find((item) => item.nombre === "Occidente"))
     form.setValue("east", !!provider.coverage?.find((item) => item.nombre === "Oriente"))
     form.setValue("northeast", !!provider.coverage?.find((item) => item.nombre === "Noreste"))
