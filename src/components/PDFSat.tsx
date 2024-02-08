@@ -38,6 +38,7 @@ const strValues: { [key: string]: string } = {
   'Nombre de la Localidad:': 'localityName',
   'Nombre del Municipio o Demarcación Territorial:': 'delegation',
   'Nombre de la Entidad Federativa:': 'state',
+  'Denominación/Razón Social:': 'businessName',
 }
 
 export type PDFFile = string | ArrayBuffer | URL | File | null
