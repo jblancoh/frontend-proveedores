@@ -17,12 +17,15 @@ import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { createProviders } from "@/services"
 import { useToast } from "@/components/ui/use-toast"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import DatePicker from "@/components/DatePicker"
 import { ToastAction } from "@/components/ui/toast"
 import IconPlus from "@/components/IconPlus"
+import PDFSat from "@/components/PDFSat"
+import PDFOthers from "@/components/PDFOthers"
+import {  } from "react"
 
 const IS_DEV = process.env.NODE_ENV === "development"
 
@@ -99,6 +102,14 @@ const Page = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const { handleSubmit, reset } = form
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
   
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setLoading(true)
@@ -122,11 +133,18 @@ const Page = () => {
       setLoading(false)
     }
   }
-  
-  
+
 
   return (
     <div className="pb-10">
+      <div className="grid grid-cols-3 gap-4">
+        <div className="col-span-1">
+          {isVisible && <PDFSat form={form} />}
+        </div>
+        <div className="col-span-1">
+          {isVisible && <PDFOthers form={form} />}
+        </div>
+      </div>
       <Form {...form}>
         <form className="py-2" onSubmit={handleSubmit(onSubmit)}>
           <div className="my-2">
@@ -176,7 +194,6 @@ const Page = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {/* Contactos */}
                 <div className="grid grid-flow-row gap-4 py-4">
                   {
                     form.getValues("contact").length > 0 && (
