@@ -1,10 +1,17 @@
 'use client'
 
+import { handleLogout } from "@/app/actions/auth"
+import { AuthContext } from "@/context/auth-provider"
+import { useRouter } from "next/navigation"
+import { useContext } from "react"
+
 const IconLogout = () => {
-  
+  const router = useRouter()
+  const {setUser} = useContext(AuthContext)
   const logout = () => {
-    localStorage.removeItem('token')
-    window.location.href = '/'
+    setUser(null)
+    window.localStorage.clear()
+    handleLogout()
   }
   
   return (
