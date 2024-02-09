@@ -9,12 +9,12 @@ interface ProvidersLayoutProps {
 
 const ProvidersLayout: React.FC<ProvidersLayoutProps> = ({ children }) => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto my-4">
       <div className="flex justify-between pb-2">
         <IconHome />
         <div className="flex flex-row items-center">
           <Menu />
-          {/* <IconLogout /> */}
+          <IconLogout />
         </div>
       </div>
       {children}
