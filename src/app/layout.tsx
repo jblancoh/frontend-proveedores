@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import NavBar from "@/components/NavBar"
 import { Toaster } from "@/components/ui/toaster"
+import AuthProvider from '../context/auth-provider'
 
 interface HomeLayoutProps {
   children: React.ReactNode;
@@ -19,13 +20,13 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   return (
      <html lang="en">
       <body className={inter.className}>
-        <NavBar />
-        <main className="h-screen mx-auto px-4 py-4">
-          <div className="container mx-auto">
+        <AuthProvider>
+          <NavBar />
+          <main className="h-screen mx-auto">
             {children}
-          </div>
-        </main>
-        <Toaster />
+          </main>
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
     )
