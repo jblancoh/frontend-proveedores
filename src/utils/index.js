@@ -46,6 +46,7 @@ const createData = (data) => {
     delmpo: data.delegation,
     estado: data.state,
     cp: data.postalCode,
+    p_curp: data.curp,
     nacional: "MEX",
     fec_const: data.constitutionDate,
     estatus: 1,
