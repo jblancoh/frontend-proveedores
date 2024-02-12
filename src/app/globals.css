@@ -35,6 +35,7 @@
     --radius: 0.5rem;
     --radius-background: 359, 95%, 63%, 1;
     --radius-foreground: 2, 56%, 48%, 1;
+    /* --radius-background: 207.79, 98.55%, 27.06%, 1; */
   }
  
   .dark {
