@@ -1,4 +1,4 @@
-import { createData } from '../utils';
+import { createData, formatAdHoc } from '../utils';
 
 async function createProviders(data) {
   const formattedData = createData(data);
@@ -105,6 +105,26 @@ async function activeProviderById(id) {
   }
 }
 
+async function getProvidersAdHoc(data) {
+  const formattedData = formatAdHoc(data);
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/adhoc`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formattedData),
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+  
+
 export {
   createProviders,
   getAllProviders,
@@ -112,4 +132,5 @@ export {
   updateProviderById,
   deleteProviderById,
   activeProviderById,
+  getProvidersAdHoc,
 }
