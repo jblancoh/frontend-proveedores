@@ -37,7 +37,7 @@ type FormValues = {
   economicActivity: boolean;
   specialty: boolean;
   status: string;
-  allGeneralFields: string;
+  allGeneralFields: boolean;
 }
 
 export type CheckboxData = {
@@ -70,7 +70,6 @@ const Page = () => {
     }
   )
 
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
 
   const { handleSubmit } = form
