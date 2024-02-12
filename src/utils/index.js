@@ -32,6 +32,26 @@ const coverageFormat = (data) => {
   return coverage
 }
 
+const formatAdHoc = (data) => {
+  return {
+    providerclassification: data.actives ? 1 : 0,
+    allgeneralfields: data.allGeneralFields ? 1 : 0,
+    nomraz: data.businessName ? 1 : 0,
+    nomcomm: data.commercialName ? 1 : 0,
+    website: data.website ? 1 : 0,
+    rfc: data.rfc ? 1 : 0,
+    obj_social: data.socialObjective ? 1 : 0,
+    act_econom: data.economicActivity ? 1 : 0,
+    especialidad: data.speciality ? 1 : 0,
+    domicilio: data.fullAddress ? 1 : 0,
+    delmpo: data.delegation ? 1 : 0,
+    estado: data.state ? 1 : 0,
+    cp: data.postalCode ? 1 : 0,
+    fec_const: data.constitutionDate ? 1 : 0,
+    alldirectory: data.allDirectory ? 1 : 0,
+  }
+}
+
 const createData = (data) => {
   return {
     id: data.id,
@@ -70,4 +90,5 @@ const createData = (data) => {
 export {
   createData,
   contactFormatToForm,
+  formatAdHoc,
 }
