@@ -8,6 +8,7 @@ import {
 import { Label } from "./ui/label";
 import { useContext } from "react";
 import { AuthContext } from "@/context/auth-provider";
+import { DarkMode } from "./DarkMode";
 
 const NavBar = () => {
   const { user } = useContext(AuthContext) || {};
@@ -33,6 +34,7 @@ const NavBar = () => {
           <Label className="text-white">Provider Managment Radius - PMR</Label>
         </Link>
         <Label className="text-white">{user?.username}</Label>
+        <DarkMode />
       </div>
     </div>
   )
