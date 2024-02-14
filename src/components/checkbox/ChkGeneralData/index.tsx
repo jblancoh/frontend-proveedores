@@ -48,8 +48,9 @@ export default function ChkGeneralData() {
                 name="allGeneralFields"
                 checked={watch("allGeneralFields")}
                 onChange={handleChange}
+                id="allGeneralFields"
             />
-            <label className="form-check-label ms-2">Todo</label>
+            <label className="form-check-label ms-2" htmlFor="allGeneralFields">Todo</label>
         </div>
         <div className="grid grid-cols-7 gap-4 py-2">
           {generalData.map((item, index) => (

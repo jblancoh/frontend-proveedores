@@ -34,7 +34,7 @@ const coverageFormat = (data) => {
 
 const formatAdHoc = (data) => {
   return {
-    providerclassification: data.actives ? 1 : 0,
+    providerclassification: data.status === 'actives' ? 1 : 0,
     allgeneralfields: data.allGeneralFields ? 1 : 0,
     nomraz: data.businessName ? 1 : 0,
     nomcomm: data.commercialName ? 1 : 0,
