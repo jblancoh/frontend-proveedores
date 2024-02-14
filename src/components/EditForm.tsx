@@ -29,7 +29,8 @@ interface ProviderData {
   id: string
   nomraz: string
   nomcomm: string
-  website?: URL | string,
+  website?: URL | string
+  p_curp?: string
   rfc?: string
   obj_social?: string
   act_econom?: string
@@ -67,6 +68,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
       businessName: '',
       commercialName: '',
       website: '',
+      curp: '',
       constitutionDate: '',
       state: '',
       fullAddress: '',
@@ -99,6 +101,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
     form.setValue("businessName", provider.nomraz)
     form.setValue("commercialName", provider.nomcomm)
     form.setValue("website", String(provider.website) ?? '')
+    form.setValue("curp", provider.p_curp ?? '')
     form.setValue("constitutionDate", provider.fec_const ?? '')
     form.setValue("state", provider.estado ?? '')
     form.setValue("fullAddress", provider.domicilio ?? '')
@@ -149,7 +152,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
             <Card>
               <CardHeader>
                 <CardTitle>
-                  <FormSectionHeader title="General" />
+                  <FormSectionHeader title="Empresa" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -157,7 +160,7 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
                   <InputField form={form} name="businessName" label="Razón Social" />
                   <InputField form={form} name="commercialName" label="Nombre comercial" />
                   <InputField form={form} name="rfc" label="RFC" />
-                  <InputField form={form} name="website" label="Página web" />
+                  {/* <InputField form={form} name="website" label="Página web" /> */}
                 </div>
                 <div className="grid grid-cols-3 gap-4 py-2">
                   <div className="self-center">
@@ -172,10 +175,32 @@ const EditForm = ({ provider }: { provider: ProviderData }) => {
                   <InputField form={form} name="delegation" label="Delegación/Municipio" />
                   <InputField form={form} name="postalCode" label="C.P." />
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="col-span-3 mt-6">
-                    <Separator />
-                  </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="my-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  <FormSectionHeader title="Clave Única de Registro de Población" />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-4">
+                  <InputField form={form} name="curp" label="CURP" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="my-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  <FormSectionHeader title="Actividad" />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-flow-3 md:grid-cols-3 gap-4 items-center ">
                   <InputField form={form} name="socialObjective" label="Objetivo social" multiple />
                   <InputField form={form} name="economicActivity" label="Actividad económica" multiple />
                   <InputField form={form} name="speciality" label="Especialidad" multiple />

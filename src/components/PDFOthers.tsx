@@ -21,10 +21,10 @@ const PDFOthers = ({ form }: { form: any }) => {
       pdfjs.getDocument(filePDF).promise.then((pdf) => {
         pdf.getPage(1).then((page) => {
           page.getTextContent().then((textContent: any) => {
-            form.setValue('website', textContent.items[28]?.str);
-            form.setValue('socialObjective', textContent.items[50]?.str);
-            form.setValue('economicActivity', textContent.items[39]?.str);
-            form.setValue('speciality', textContent.items[1]?.str);
+            form.setValue('curp', textContent.items[28]?.str);
+            // form.setValue('socialObjective', textContent.items[50]?.str);
+            // form.setValue('economicActivity', textContent.items[39]?.str);
+            // form.setValue('speciality', textContent.items[1]?.str);
 
           })
         })
@@ -34,8 +34,7 @@ const PDFOthers = ({ form }: { form: any }) => {
   
   return (
     <>
-      <h1>Otro Documento</h1>
-      <FileUpload setFilePDF={setFilePDF} title="Otro Documento" />
+      <FileUpload setFilePDF={setFilePDF} title="CURP" />
       {
         filePDF && (
           <Document

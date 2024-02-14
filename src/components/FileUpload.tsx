@@ -1,10 +1,9 @@
 'use client';
-import { Dispatch, SetStateAction } from "react";
-import { FilePond } from 'react-filepond';
+import { FilePond, FilePondProps } from 'react-filepond';
 
 import 'filepond/dist/filepond.min.css';
 
-const FileUpload = ({ setFilePDF, title }: { setFilePDF: any, title: string }) => {
+const FileUpload = ({ setFilePDF, title, ...props }: { setFilePDF: any, title: string } & FilePondProps) => {
 
   return (
     <FilePond
@@ -23,6 +22,7 @@ const FileUpload = ({ setFilePDF, title }: { setFilePDF: any, title: string }) =
         }
       }}
       labelIdle={`Arrastra y suelta tu archivo de ${title} o <span class='filepond--label-action'>haz click aquí</span>.`}
+      {...props}
     />
   );
 }

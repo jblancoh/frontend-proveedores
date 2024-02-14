@@ -42,6 +42,7 @@ export type FormValues = {
   businessName: string,
   commercialName: string,
   website: URL | string,
+  curp?: string,
   constitutionDate?: Date | string,
   state?:  string,
   fullAddress?:  string,
@@ -81,6 +82,7 @@ const Page = () => {
         socialObjective: IS_DEV ? "Hola mundo Objetivo Social" : "",
         economicActivity: IS_DEV ? "Hola mundo Actividad Economica" : "",
         speciality: IS_DEV ? "Hola mundo Especialidad" : "",
+        curp: IS_DEV ? "CURP" : "",
         west: false,
         east: false,
         northeast: false,
@@ -137,30 +139,28 @@ const Page = () => {
 
   return (
     <div className="pb-10">
-      <div className="grid grid-cols-3 gap-4">
-        <div className="col-span-1">
-          {isVisible && <PDFSat form={form} />}
-        </div>
-        <div className="col-span-1">
-          {isVisible && <PDFOthers form={form} />}
-        </div>
-      </div>
+      
       <Form {...form}>
         <form className="py-2" onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid grid-cols-3 gap-4 my-4">
+           
+          </div>
           <div className="my-2">
             <Card>
               <CardHeader>
                 <CardTitle>
-                  <FormSectionHeader title="General" />
+                  <FormSectionHeader title="Empresa" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
+                <div className="col-span-1">
+                  {isVisible && <PDFSat form={form} />}
+                </div>
                 <div className="grid grid-flow-row md:grid-cols-4 gap-4">
                   <InputField form={form} name="businessName" label="Razón social" />
                   <InputField form={form} name="commercialName" label="Nombre comercial" />
                   <InputField form={form} name="rfc" label="RFC" />
-                  <InputField form={form} name="website" label="Página web" />
-
+                  {/* <InputField form={form} name="website" label="Página web" /> */}
                 </div>
                 <div className="grid grid-flow-row md:grid-cols-3 gap-4 py-2">
                   <div className="self-end">
@@ -175,13 +175,44 @@ const Page = () => {
                   <InputField form={form} name= "delegation" label="Delegación/Municipio" />
                   <InputField form={form} name= "postalCode" label="C.P." />
                 </div>
-                <div className="grid grid-flow-3 md:grid-cols-3 gap-4 items-center ">
-                  <div className="md:col-span-3 mt-6">
-                    <Separator />
+                
+              </CardContent>
+            </Card>
+          </div>
+          <div className="grid grid-cols-3 gap-4 my-4">
+            
+          </div>
+          <div className="my-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  <FormSectionHeader title="Clave Única de Registro de Población" />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-flow-row md:grid-cols-4 gap-4">
+                  <div className="col-span-4 grid grid-cols-4">
+                    <div className="col-span-4">
+                    {isVisible && <PDFOthers form={form} />}
+                    </div>
                   </div>
-                    <InputField form={form} name="socialObjective" label="Objetivo social" multiple />
-                    <InputField form={form} name="economicActivity" label="Actividad económica" multiple />
-                    <InputField form={form} name="speciality" label="Especialidad" multiple />
+                  <InputField form={form} name="curp" label="CURP" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="my-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  <FormSectionHeader title="Actividad" />
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-flow-3 md:grid-cols-3 gap-4 items-center ">
+                  <InputField form={form} name="socialObjective" label="Objetivo social" multiple />
+                  <InputField form={form} name="economicActivity" label="Actividad económica" multiple />
+                  <InputField form={form} name="speciality" label="Especialidad" multiple />
                 </div>
               </CardContent>
             </Card>

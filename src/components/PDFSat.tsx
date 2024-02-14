@@ -91,7 +91,6 @@ const PDFSat = ({ form }: { form: any }) => {
   
   return (
     <>
-      <h1>Constancia de Situación Fiscal</h1>
       <FileUpload setFilePDF={setFilePDF} title="Constancia de Situación Fiscal" />
       {
         filePDF && (
