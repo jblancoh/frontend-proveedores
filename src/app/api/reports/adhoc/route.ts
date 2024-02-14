@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
         url += `?${key}=${res[key]}`;
       }
     })
+    console.log("🚀 ~ POST ~ url:", url)
     const response = await fetch(url, {
       method: 'POST',
     })

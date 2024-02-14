@@ -82,7 +82,8 @@ const Page = () => {
       const url = window.URL.createObjectURL(data);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `reportes_proveedores_${values.status}.csv`;
+      const status = values.status === "actives" ? "activos" : "inactivos";
+      a.download = `reportes_proveedores_${status}.csv`;
       document.body.appendChild(a);
       a.click();
       a.remove();
