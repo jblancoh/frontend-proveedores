@@ -24,7 +24,7 @@ const NavBar = () => {
               passHref
             >
               {
-                theme === "light" ? <img src="/radius.svg" /> : <img src="/ideal.png" width={150} height={150} />
+                theme === "dark" ? <img src="/ideal.png" width={150} height={150} /> : <img src="/radius.svg" />
               }
             </Link>
           </NavigationMenuItem>
