@@ -17,7 +17,7 @@ const Menu = () => {
     <Menubar className="bg-white border-0 rounded-none">
       <MenubarMenu>
         <MenubarTrigger 
-          className={`hover:bg-radius hover:text-white focus:bg-radius focus:text-white 
+          className={`hover:bg-radius hover:text-white 
             ${(pathname === '/create' || pathname === '/providers' || pathname === '/edit') && 'bg-radius text-white'}
           `}
           
@@ -25,10 +25,10 @@ const Menu = () => {
           ABC
         </MenubarTrigger>
         <MenubarContent>
-          <MenubarItem onSelect={() => router.push('create')}>
+          <MenubarItem onSelect={() => router.push('/create')}>
             Alta Proveedor <MenubarShortcut>⌘W</MenubarShortcut>
           </MenubarItem>
-          <MenubarItem onSelect={() => router.push('providers')}>
+          <MenubarItem onSelect={() => router.push('/providers')}>
             Bajas y cambios <MenubarShortcut>⌘E</MenubarShortcut>
           </MenubarItem>
         </MenubarContent>
@@ -38,7 +38,7 @@ const Menu = () => {
           className={`hover:bg-radius hover:text-white focus:bg-radius focus:text-white 
             ${pathname === '/reports' && 'bg-radius text-white'}
           `}
-          onClick={() => router.push('reports')}
+          onClick={() => router.push('/reports')}
         >
           Reportes
         </MenubarTrigger>

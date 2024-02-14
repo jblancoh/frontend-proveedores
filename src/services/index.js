@@ -108,7 +108,7 @@ async function activeProviderById(id) {
 async function getProvidersAdHoc(data) {
   const formattedData = formatAdHoc(data);
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/providers/adhoc`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/reports/adhoc`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
