@@ -6,7 +6,7 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { Label } from "./ui/label";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/context/auth-provider";
 import { DarkMode } from "./DarkMode";
 import { useTheme } from "next-themes";
@@ -14,8 +14,14 @@ import { useTheme } from "next-themes";
 const NavBar = () => {
   const { user } = useContext(AuthContext) || {};
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => setMounted(true), []);
+    
   return (
-    <div className="flex justify-around py-2 bg-radius">
+    <div className="flex justify-around py-2 bg-radius min-h-16">
+      {mounted &&
+      <>
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -23,7 +29,7 @@ const NavBar = () => {
               href="/"
               passHref
             >
-              {
+              { 
                 theme === "dark" ? <img src="/ideal.png" width={150} height={150} /> : <img src="/radius.svg" />
               }
             </Link>
@@ -40,6 +46,8 @@ const NavBar = () => {
         <Label className="text-white">{user?.username}</Label>
         <DarkMode />
       </div>
+      </>
+      }
     </div>
   )
 }
