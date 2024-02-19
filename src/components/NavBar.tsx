@@ -44,7 +44,7 @@ const NavBar = () => {
           <Label className="text-white">Provider Managment Radius - PMR</Label>
         </Link>
         <Label className="text-white">{user?.username}</Label>
-        <DarkMode />
+        {/* <DarkMode /> */}
       </div>
       </>
       }
