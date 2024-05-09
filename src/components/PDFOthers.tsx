@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { pdfjs, Document } from 'react-pdf';
 import 'react-pdf/dist/Page/TextLayer.css';
 import FileUpload from './FileUpload';
+import { verifyIfIsCURP } from '@/utils';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -12,20 +13,18 @@ const options = {
 };
 
 const PDFOthers = ({ form }: { form: any }) => {
-  const [numPages, setNumPages] = useState(0);
   const [filePDF, setFilePDF] = useState(null);
   
-  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
-    setNumPages(numPages);
+  const onDocumentLoadSuccess = () => {
     if (filePDF) {
       pdfjs.getDocument(filePDF).promise.then((pdf) => {
         pdf.getPage(1).then((page) => {
           page.getTextContent().then((textContent: any) => {
-            form.setValue('curp', textContent.items[28]?.str);
-            // form.setValue('socialObjective', textContent.items[50]?.str);
-            // form.setValue('economicActivity', textContent.items[39]?.str);
-            // form.setValue('speciality', textContent.items[1]?.str);
-
+            textContent.items.forEach((item: any) => {
+              if (verifyIfIsCURP(item.str)) {
+                form.setValue('curp', item.str);
+              }
+            })
           })
         })
       })
@@ -34,7 +33,11 @@ const PDFOthers = ({ form }: { form: any }) => {
   
   return (
     <>
-      <FileUpload setFilePDF={setFilePDF} title="CURP" />
+      <FileUpload 
+        setFilePDF={setFilePDF}
+        title="CURP" 
+        onremovefile={() => form.setValue('curp', '')}
+      />
       {
         filePDF && (
           <Document

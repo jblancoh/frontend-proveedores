@@ -33,8 +33,8 @@
     --ring: 222.2 84% 4.9%;
  
     --radius: 0.5rem;
-    --radius-background: 359, 95%, 63%, 1;
-    --radius-foreground: 2, 56%, 48%, 1;
+    --radius-background: 224 100% 22%;
+    --radius-foreground: 224 56% 48%;
     /* --radius-background: 207.79, 98.55%, 27.06%, 1; */
   }
  
@@ -51,7 +51,7 @@
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
   
-    --secondary: 210 40% 96.1%;
+    --secondary: 0 83% 66%;
     --secondary-foreground: 222.2 47.4% 11.2%;
   
     --muted: 210 40% 96.1%;
@@ -68,10 +68,8 @@
     --ring: 222.2 84% 4.9%;
   
     --radius: 0.5rem;
-    /* --radius-background: 207.79, 98.55%, 27.06%, 1;
-    --radius-foreground: 2, 56%, 48%, 1; */
-    --radius-background: 359, 95%, 63%, 1;
-    --radius-foreground: 2, 56%, 48%, 1;
+    --radius-background: 224 100% 22%;
+    --radius-foreground: 224 56% 48%;
   }
 }
  

@@ -87,8 +87,16 @@ const createData = (data) => {
   }
 }
 
+const verifyIfIsCURP = (data) => {
+  const re = new RegExp(
+    "^([A-Z][AEIOU][A-Z]{2})([0-9]{2})([0-1][0-9])([0-3][0-9])([HM])([A-Z]{2})([B-DF-HJ-NP-TV-Z]{3})([0-9A-Z][0-9])?$"
+  );
+  return re.test(data);
+}
+
 export {
   createData,
   contactFormatToForm,
   formatAdHoc,
+  verifyIfIsCURP,
 }
