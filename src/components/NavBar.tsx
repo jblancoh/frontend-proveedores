@@ -32,7 +32,7 @@ const NavBar = () => {
               {/* { 
                 theme === "dark" ? <img src="/ideal.png" width={150} height={150} /> : <img src="/radius.svg" />
               } */}
-              <img src="/radius.svg" />
+              <img src="/kpx.png" width={150} />
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>

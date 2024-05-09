@@ -32,7 +32,7 @@ const Page = () => {
               variant="radius"
               onClick={() => router.push('create')}
             >
-              <Label className="font-light">Alta de Proveedor</Label>
+              <Label className="font-light cursor-pointer">Alta de Proveedor</Label>
             </Button>
           </CardFooter>
         </Card>
@@ -46,7 +46,7 @@ const Page = () => {
               variant="radius"
               onClick={() => router.push('reports')}
             >
-              <Label className="font-light">
+              <Label className="font-light cursor-pointer">
                 Generar reporte
               </Label>
             </Button>
