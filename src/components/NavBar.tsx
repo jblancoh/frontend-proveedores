@@ -1,5 +1,6 @@
 'use client'
 import Link from "next/link"
+import Image from "next/image"
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -30,9 +31,11 @@ const NavBar = () => {
               passHref
             >
               {/* { 
-                theme === "dark" ? <img src="/ideal.png" width={150} height={150} /> : <img src="/radius.svg" />
+                theme === "dark" ? <img src="/ideal.png" width={150} height={150} /> :
               } */}
-              <img src="/kpx.png" width={150} />
+               {/* <img src="/public/radius.svg" /> */}
+               <Image src="/radius.svg" width={150} height={150} alt="logo"/>
+              {/* <img src="/kpx.png" width={150} /> */}
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>

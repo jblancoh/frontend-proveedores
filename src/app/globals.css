@@ -68,8 +68,10 @@
     --ring: 222.2 84% 4.9%;
   
     --radius: 0.5rem;
-    --radius-background: 224 100% 22%;
-    --radius-foreground: 224 56% 48%;
+    --radius-background: 359, 95%, 63%, 1;
+    --radius-foreground: 2, 56%, 48%, 1;
+    /* --radius-background: 224 100% 22%;
+    --radius-foreground: 224 56% 48%; */
   }
 }
  
