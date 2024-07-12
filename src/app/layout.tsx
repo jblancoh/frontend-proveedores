@@ -23,7 +23,7 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
       <body className={inter.className}>
         <ThemeProvider 
           attribute="class"
-          defaultTheme='system'
+          defaultTheme='dark'
           enableSystem={true}
           disableTransitionOnChange={true}
         >
