@@ -34,7 +34,7 @@ const NavBar = () => {
                 theme === "dark" ? <img src="/ideal.png" width={150} height={150} /> :
               } */}
                {/* <img src="/public/radius.svg" /> */}
-               <Image src="/radius.svg" width={150} height={150} alt="logo"/>
+               <Image src="/radius.svg" width={80} height={80} alt="logo"/>
               {/* <img src="/kpx.png" width={150} /> */}
             </Link>
           </NavigationMenuItem>
